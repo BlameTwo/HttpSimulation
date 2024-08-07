@@ -49,6 +49,7 @@ public class DialogManager : IDialogManager
         return await _dialog.ShowAsync();
     }
 
+
     public async Task ShowDialogAsync<T, Value>(Value type) where T : ContentDialog, IDialogBase<Value>
     {
         var dialog = Setup.ServiceProvider.GetService<T>();

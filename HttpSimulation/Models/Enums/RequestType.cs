@@ -2,5 +2,6 @@
 
 public enum RequestType:uint
 {
-    Http=1,
+    Http =1,
+    Folder = 2,
 }

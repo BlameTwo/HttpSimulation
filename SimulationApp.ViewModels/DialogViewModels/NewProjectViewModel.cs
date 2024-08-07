@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HttpSimulation.Contracts;
+using HttpSimulation.Models;
 using System.Threading.Tasks;
 using WinUIExtentions.Contracts;
 
@@ -29,6 +30,7 @@ public sealed partial class NewProjectViewModel:ObservableObject
     [RelayCommand]
     async Task CreateAsync()
     {
+        var p = await SimulationProjcet.ParseAsync("D:\\Test.zip");
         var project =  ProjectService.CreateProject(ProjectName);
         project = await project.SaveAsAsync("D:\\Test.zip");
     }

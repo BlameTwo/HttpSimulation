@@ -6,5 +6,4 @@ public interface IProjectService
 {
     public SimulationProjcet CreateProject(string name);
 
-    public SimulationProjcet Parse(string path);
 }

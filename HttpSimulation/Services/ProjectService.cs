@@ -1,6 +1,8 @@
 ﻿using HttpSimulation.Common;
 using HttpSimulation.Contracts;
 using HttpSimulation.Models;
+using HttpSimulation.Models.InterfaceTypes;
+using System.Text;
 
 namespace HttpSimulation.Services;
 
@@ -20,8 +22,5 @@ public sealed partial class ProjectService : IProjectService
         return project.SaveAsAsync(path);
     }
 
-    public SimulationProjcet Parse(string path)
-    {
-        throw new NotImplementedException();
-    }
+    
 }

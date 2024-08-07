@@ -29,7 +29,8 @@
             Margin="5,15,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
-            PlaceholderText="输入你的项目名称" />
+            PlaceholderText="输入你的项目名称"
+            Text="{x:Bind ViewModel.ProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <NavigationViewItemSeparator Grid.Row="2" Grid.ColumnSpan="2" />
         <Grid
             Grid.Row="3"

@@ -72,7 +72,7 @@ public class ApplicationSetup<App,LauncherPage> : IApplicationSetup<App>
     {
         this.Application = app;
         this.Application.MainWindow = new();
-        this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
+        this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop();
         this.Application.MainWindow.ExtendsContentIntoTitleBar = true;
         Application.MainWindow.Content = Setup.ServiceProvider.GetService<LauncherPage>();
         this.Application.MainWindow.Activate();

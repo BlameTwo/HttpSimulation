@@ -24,11 +24,14 @@
                 <MenuBar>
                     <MenuBarItem Title="项目">
                         <MenuFlyoutItem Command="{x:Bind ViewModel.ShowCreateProjectCommand}" Text="新建" />
-                        <MenuFlyoutItem Text="打开" />
+                        <MenuFlyoutItem Command="{x:Bind ViewModel.OpenProjectCommand}" Text="打开" />
+                    </MenuBarItem>
+                    <MenuBarItem Title="编辑">
+                        <MenuFlyoutItem Text="保存项目" />
                     </MenuBarItem>
                 </MenuBar>
             </control:TitleBar.Header>
         </control:TitleBar>
-
+        <Frame x:Name="frame" Grid.Row="1" />
     </Grid>
 </Page>

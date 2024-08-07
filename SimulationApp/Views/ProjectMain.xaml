@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="SimulationApp.Views.ProjectMain"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:converter="using:SimulationApp.Selector"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:interface="using:HttpSimulation.Models.InterfaceTypes"
+    xmlns:local="using:SimulationApp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="using:SimulationApp.ViewModels"
+    Margin="8"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <DataTemplate x:Key="FolderTemplate">
+            <TreeViewItem IsExpanded="True" ItemsSource="{Binding Interfaces, Mode=OneWay}">
+                <TreeViewItem.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem
+                            Command="{Binding ChangedInterfaceNameCommand}"
+                            FontSize="14"
+                            Text="重命名">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="14"
+                                    Glyph="&#xE8AC;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </TreeViewItem.ContextFlyout>
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon
+                        FontFamily="Segoe Fluent Icons"
+                        FontSize="12"
+                        Glyph="&#xE8B7;" />
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Text="{Binding Name, Mode=OneWay}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+        <DataTemplate x:Key="DefaultTemplate">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <StackPanel.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem
+                            Command="{Binding ChangedInterfaceNameCommand}"
+                            FontSize="14"
+                            Text="重命名">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="14"
+                                    Glyph="&#xE8AC;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </StackPanel.ContextFlyout>
+                <TextBlock
+                    FontSize="12"
+                    Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+                    Text="{Binding Method, Mode=OneWay}" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    FontSize="12"
+                    Text="{Binding Name, Mode=OneWay}" />
+            </StackPanel>
+        </DataTemplate>
+        <converter:PorjectInterfaceSelector
+            x:Key="PorjectInterfaceSelector"
+            DefaultTemplate="{StaticResource DefaultTemplate}"
+            FolderTemplate="{StaticResource FolderTemplate}" />
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="200" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid
+            x:Name="projectView"
+            Grid.RowSpan="3"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="5">
+            <controls:HeaderedTreeView
+                x:Name="interfaceView"
+                Header="{x:Bind ViewModel, Mode=OneWay}"
+                ItemTemplateSelector="{ThemeResource PorjectInterfaceSelector}"
+                ItemsSource="{x:Bind ViewModel.Interfaces, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.SelectInterface, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <controls:HeaderedTreeView.HeaderTemplate>
+                    <DataTemplate x:DataType="viewmodel:ProjectMainViewModel">
+                        <Grid Margin="10" HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Margin="0,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="接口" />
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Orientation="Horizontal">
+                                <Button
+                                    Padding="5"
+                                    VerticalAlignment="Center"
+                                    CornerRadius="5"
+                                    Style="{ThemeResource TransparentButtonStyle}">
+                                    <FontIcon
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="14"
+                                        Glyph="&#xE710;" />
+                                    <Button.Flyout>
+                                        <MenuFlyout Placement="Bottom">
+                                            <MenuFlyoutItem
+                                                Command="{x:Bind CreateInterfaceTaskCommand}"
+                                                FontSize="12"
+                                                Text="接口">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        FontSize="10"
+                                                        Glyph="&#xE67A;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </controls:HeaderedTreeView.HeaderTemplate>
+                <controls:HeaderedTreeView.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                        <AddDeleteThemeTransition />
+                    </TransitionCollection>
+                </controls:HeaderedTreeView.ItemContainerTransitions>
+            </controls:HeaderedTreeView>
+        </Grid>
+        <controls:GridSplitter
+            Grid.RowSpan="3"
+            Grid.Column="1"
+            Cursor="Hand" />
+        <Grid
+            Grid.Column="2"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="5" />
+        <controls:GridSplitter
+            Grid.Row="1"
+            Grid.Column="2"
+            Grid.ColumnSpan="3"
+            Cursor="Hand"
+            Orientation="Horizontal" />
+        <Grid
+            x:Name="contentView"
+            Grid.Row="2"
+            Grid.Column="2"
+            Grid.ColumnSpan="3"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="5">
+            <SelectorBar>
+                <SelectorBarItem Text="预览" />
+                <SelectorBarItem Text="结果" />
+            </SelectorBar>
+        </Grid>
+    </Grid>
+</Page>

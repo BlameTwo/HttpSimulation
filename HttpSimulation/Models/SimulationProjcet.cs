@@ -13,6 +13,9 @@ public sealed partial class SimulationProjcet:ICloneable
         this.ID = id;
     }
 
+    [JsonIgnore]
+    public IEnumerable<InterfaceType>? Interfaces { get; set; }
+
     [JsonPropertyName("projectName")]
     public string ProjectName { get; set; }
 
@@ -50,10 +53,94 @@ public sealed partial class SimulationProjcet:ICloneable
                         ID = Guid.NewGuid().ToString("N").ToUpper(),
                         Name = "默认接口",
                         Method = "GET"
+                    },
+                    new FolderInterface()
+                    {
+                        ID = Guid.NewGuid().ToString("N").ToUpper(),
+                        Name = "Post请求",
+                        Interfaces = new System.Collections.ObjectModel.ObservableCollection<InterfaceType>()
+                        {
+                            new HttpInterface()
+                            {
+                                ID=Guid.NewGuid().ToString("N").ToUpper(),
+                                Name = "接口1",
+                                Method = "Post"
+                            },
+                            new HttpInterface()
+                            {
+                                ID=Guid.NewGuid().ToString("N").ToUpper(),
+                                Name = "接口2",
+                                Method = "Post"
+                            },
+                            new HttpInterface()
+                            {
+                                ID=Guid.NewGuid().ToString("N").ToUpper(),
+                                Name = "接口3",
+                                Method = "Post"
+                            },new HttpInterface()
+                            {
+                                ID=Guid.NewGuid().ToString("N").ToUpper(),
+                                Name = "接口4",
+                                Method = "Post"
+                            }
+                        }
+                    },
+                    new FolderInterface()
+                    {
+                        ID = Guid.NewGuid().ToString("N").ToUpper(),
+                        Name = "Get请求",
+                        Interfaces = new System.Collections.ObjectModel.ObservableCollection<InterfaceType>()
+                        {
+                            new HttpInterface()
+                            {
+                                ID=Guid.NewGuid().ToString("N").ToUpper(),
+                                Name = "接口1",
+                                Method = "Get"
+                            },
+                            new HttpInterface()
+                            {
+                                ID=Guid.NewGuid().ToString("N").ToUpper(),
+                                Name = "接口2",
+                                Method = "Get"
+                            },
+                            new HttpInterface()
+                            {
+                                ID=Guid.NewGuid().ToString("N").ToUpper(),
+                                Name = "接口3",
+                                Method = "Get"
+                            },new HttpInterface()
+                            {
+                                ID=Guid.NewGuid().ToString("N").ToUpper(),
+                                Name = "接口4",
+                                Method = "Get"
+                            }
+                        }
                     }
                 });
                 return await pojZippojZip.BuildAsync();
             }
+        }
+    }
+
+
+    public static async Task<SimulationProjcet?> ParseAsync(string path)
+    {
+        if (!File.Exists(path))
+            return null;
+        using (var fs = File.OpenRead(path))
+        {
+            using (ProjectZipArchive pojZippojZip = new ProjectZipArchive(fs, System.IO.Compression.ZipArchiveMode.Read, false, Encoding.UTF8))
+            {
+                return await pojZippojZip.GetProjectDataAsync();
+            }
+        }
+    }
+
+    public static async Task<SimulationProjcet?> ParseAsync(Stream stream)
+    {
+        using (ProjectZipArchive pojZippojZip = new ProjectZipArchive(stream, System.IO.Compression.ZipArchiveMode.Read, false, Encoding.UTF8))
+        {
+            return await pojZippojZip.GetProjectDataAsync();
         }
     }
 }

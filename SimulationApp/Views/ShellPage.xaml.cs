@@ -17,6 +17,7 @@ public sealed partial class ShellPage : Page
     {
         this.InitializeComponent();
         this.ViewModel = Setup.GetService<ShellViewModel>();
+        ViewModel.MainNavigation.RegisterView(this.frame);
     }
 
     public ShellViewModel ViewModel { get; }

@@ -14,7 +14,11 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Styles\AppTabView.xaml" />
+    <None Remove="Styles\Button.xaml" />
+    <None Remove="Views\Dialogs\InterfaceDialog\AddInterfaceDialog.xaml" />
+    <None Remove="Views\Dialogs\InterfaceDialog\RenameInterfaceDialog.xaml" />
     <None Remove="Views\Dialogs\NewProjectDialog.xaml" />
+    <None Remove="Views\ProjectMain.xaml" />
     <None Remove="Views\ShellPage.xaml" />
   </ItemGroup>
 
@@ -29,8 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.HeaderedControls" Version="8.0.240109" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.Sizers" Version="8.0.240109" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240627000" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -49,6 +56,16 @@
     <ProjectReference Include="..\WinUIExtentions\WinUIExtentions.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Styles\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\ProjectMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Styles\AppTabView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -60,6 +77,19 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\NewProjectDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\InterfaceDialog\AddInterfaceDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\InterfaceDialog\RenameInterfaceDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

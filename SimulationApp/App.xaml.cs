@@ -1,5 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
+using SimulationApp.ViewModels;
+using SimulationApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,6 +17,7 @@ public partial class App : ClientApplication
     public App()
     {
         ProgramLife.InitService();
+        Setup.GetService<IPageService>().RegisterView<ProjectMain, ProjectMainViewModel>();
         this.InitializeComponent();
     }
 

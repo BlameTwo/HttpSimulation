@@ -27,6 +27,10 @@ public sealed class InterfaceJsonConverter : JsonConverter<InterfaceType>
             {
                 return JsonSerializer.Deserialize<HttpInterface>(root.GetRawText(),options);
             }
+            if(value ==2)
+            {
+                return JsonSerializer.Deserialize<FolderInterface>(root.GetRawText(), options);
+            }
             // 根据某个标识符确定具体的类型
             return default;
         }

@@ -10,6 +10,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///WinUIExtentions/Styles/TitleBar.xaml" />
+                <ResourceDictionary Source="Styles/Button.xaml" />
                 <ResourceDictionary Source="Styles/AppTabView.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -43,7 +43,6 @@ public sealed class ProjectZipArchive : ZipArchive
             var options = new JsonSerializerOptions();
             options.Converters.Add(new InterfaceJsonConverter());
             var json = JsonSerializer.Serialize(this.InteraceTypes,options);
-            var types = JsonSerializer.Deserialize<List<InterfaceType>>(json,options);
             await writer.WriteAsync(json);
         }
         return copyProject;
@@ -52,5 +51,29 @@ public sealed class ProjectZipArchive : ZipArchive
     internal void AddInterfaceObject(List<InterfaceType> interfaceTypes)
     {
         this.InteraceTypes = interfaceTypes;
+    }
+
+    internal async Task<SimulationProjcet?> GetProjectDataAsync()
+    {
+        if (this.Entries == null || this.Entries.Count == 0)
+            return null;
+        SimulationProjcet? project = null;
+        IEnumerable<InterfaceType>? interfaces = null;
+        var option = new JsonSerializerOptions();
+        option.Converters.Add(new InterfaceJsonConverter());
+        foreach (var item in this.Entries)
+        {
+            if (item.FullName.Contains("Project"))
+            {
+                project = await JsonSerializer.DeserializeAsync<SimulationProjcet>(item.Open(), option);
+            }
+            if (item.FullName.Contains("Interface"))
+            {
+                interfaces = await JsonSerializer.DeserializeAsync<IEnumerable<InterfaceType>>(item.Open(), option);
+            }
+        }
+        if (project!=null)
+            project.Interfaces = interfaces;
+        return project;
     }
 }
