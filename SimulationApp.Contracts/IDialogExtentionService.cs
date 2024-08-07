@@ -12,7 +12,7 @@ public interface IDialogExtentionService
     public Task ShowCreateProjectAsync();
 
 
-    public Task<AddInterfaceResult?> CreateInterfaceAsync();
+    public Task<AddInterfaceResult?> CreateInterfaceAsync(System.Collections.Generic.List<string> list);
 
     public Task<RenameResult> CreateRenameResultAsync(InterfaceType type);
 }

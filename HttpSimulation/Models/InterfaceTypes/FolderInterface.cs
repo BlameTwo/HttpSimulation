@@ -36,8 +36,16 @@ public partial class FolderInterface:ObservableObject,InterfaceType
     [JsonIgnore]
     public IRelayCommand ChangedInterfaceNameCommand=>new RelayCommand(ChangedInterfaceName);
 
+    [JsonIgnore]
+    public IRelayCommand RemoveInteraceCommand => new RelayCommand(RemoveInterface);
+
+    private void RemoveInterface()
+    {
+        WeakReferenceMessenger.Default.Send<RemoveInterface>(new(this));
+    }
+
     public void ChangedInterfaceName()
     {
-        WeakReferenceMessenger.Default.Send<ReinterfaceName>(new(this));
+        WeakReferenceMessenger.Default.Send<ReInterfaceName>(new(this));
     }
 }

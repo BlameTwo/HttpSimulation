@@ -9,5 +9,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ComboBox
+            HorizontalAlignment="Stretch"
+            IsEditable="True"
+            ItemsSource="{x:Bind ViewModel.Folders, Mode=OneWay}"
+            PlaceholderText="根目录"
+            SelectedItem="{x:Bind ViewModel.SelectFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox
+            Grid.Row="1"
+            Margin="0,5,0,0"
+            PlaceholderText="接口名称"
+            Text="{x:Bind ViewModel.InterfaceName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
 </base:AddInterfaceBase>

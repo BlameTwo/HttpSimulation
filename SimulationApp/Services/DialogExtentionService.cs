@@ -49,9 +49,9 @@ public class DialogExtentionService : IDialogExtentionService
         return default;
     }
 
-    public async Task<AddInterfaceResult?> CreateInterfaceAsync()
+    public async Task<AddInterfaceResult?> CreateInterfaceAsync(System.Collections.Generic.List<string> list)
     {
-        return await ShowResultDialogAsync<AddInterfaceDialog, AddInterfaceParam,AddInterfaceResult,AddInterfaceViewModel>(new());
+        return await ShowResultDialogAsync<AddInterfaceDialog, AddInterfaceParam, AddInterfaceResult, AddInterfaceViewModel>(new() { BaseFolder = new(list) });
     }
 
     public async Task<RenameResult> CreateRenameResultAsync(InterfaceType type)

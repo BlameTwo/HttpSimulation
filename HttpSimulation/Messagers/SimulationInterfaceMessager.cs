@@ -2,4 +2,6 @@
 
 namespace HttpSimulation.Messagers;
 
-public record ReinterfaceName(InterfaceType Interface);
+public record ReInterfaceName(InterfaceType Interface);
+
+public record RemoveInterface(InterfaceType Interface); 

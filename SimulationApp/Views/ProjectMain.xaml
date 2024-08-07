@@ -30,6 +30,17 @@
                                     Glyph="&#xE8AC;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
+                        <MenuFlyoutItem
+                            Command="{Binding RemoveInteraceCommand}"
+                            FontSize="14"
+                            Text="删除">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="15"
+                                    Glyph="&#xE74D;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
                     </MenuFlyout>
                 </TreeViewItem.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
@@ -58,6 +69,17 @@
                                     FontFamily="Segoe Fluent Icons"
                                     FontSize="14"
                                     Glyph="&#xE8AC;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem
+                            Command="{Binding RemoveInteraceCommand}"
+                            FontSize="14"
+                            Text="删除">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="15"
+                                    Glyph="&#xE74D;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
@@ -129,6 +151,7 @@
                                         Glyph="&#xE710;" />
                                     <Button.Flyout>
                                         <MenuFlyout Placement="Bottom">
+
                                             <MenuFlyoutItem
                                                 Command="{x:Bind CreateInterfaceTaskCommand}"
                                                 FontSize="12"
@@ -138,6 +161,17 @@
                                                         FontFamily="Segoe Fluent Icons"
                                                         FontSize="10"
                                                         Glyph="&#xE67A;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem
+                                                Command="{x:Bind CrateInterfaceFolderCommand}"
+                                                FontSize="12"
+                                                Text="文件夹">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        FontSize="10"
+                                                        Glyph="&#xE8B7;" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                         </MenuFlyout>

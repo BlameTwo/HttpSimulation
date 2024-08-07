@@ -29,9 +29,16 @@ public class HttpInterface : ObservableObject,InterfaceType
     [JsonIgnore]
     public IRelayCommand ChangedInterfaceNameCommand => new RelayCommand(ChangedInterfaceName);
 
+    [JsonIgnore]
+    public IRelayCommand RemoveInteraceCommand => new RelayCommand(RemoveInterface);
 
-    public void ChangedInterfaceName()
+    private void RemoveInterface()
     {
-        WeakReferenceMessenger.Default.Send<ReinterfaceName>(new(this));
+        WeakReferenceMessenger.Default.Send<RemoveInterface>(new(this));
+    }
+
+    private void ChangedInterfaceName()
+    {
+        WeakReferenceMessenger.Default.Send<ReInterfaceName>(new(this));
     }
 }
