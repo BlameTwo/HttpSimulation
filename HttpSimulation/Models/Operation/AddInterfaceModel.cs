@@ -1,7 +1,7 @@
 ﻿using HttpSimulation.Models;
 using System.Collections.ObjectModel;
 
-namespace SimulationApp.Contracts.Models;
+namespace HttpSimulation.Models.Operation;
 
 public class AddInterfaceParam
 {

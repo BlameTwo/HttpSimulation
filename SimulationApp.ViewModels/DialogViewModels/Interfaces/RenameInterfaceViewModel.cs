@@ -1,26 +1,26 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using HttpSimulation.Models;
+using HttpSimulation.Models.Operation;
 using SimulationApp.Contracts;
-using SimulationApp.Contracts.Models;
-using System;
 
 namespace SimulationApp.ViewModels.DialogViewModels.Interfaces;
 
-public partial class RenameInterfaceViewModel:ObservableObject, IContentDialogViewModel<RenameParam,RenameResult>
+public partial class RenameInterfaceViewModel
+    : ObservableObject,
+        IContentDialogViewModel<RenameParam, RenameResult>
 {
-
     [ObservableProperty]
     public RenameParam data;
 
     [ObservableProperty]
     string _name;
 
-
-
     public RenameResult? Build()
     {
-        if(!string.IsNullOrWhiteSpace(Name))
-            return new RenameResult(Data.type.ID,this.Name);
+        if (!string.IsNullOrWhiteSpace(Name))
+            new RenameResult(Data.type.ID, this.Name);
         return null;
     }
 

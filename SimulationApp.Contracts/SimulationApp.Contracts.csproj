@@ -17,4 +17,8 @@
     <ProjectReference Include="..\HttpSimulation\HttpSimulation.csproj" />
     <ProjectReference Include="..\WinUIExtentions\WinUIExtentions.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
 </Project>

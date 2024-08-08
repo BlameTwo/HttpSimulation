@@ -1,25 +1,21 @@
-﻿using HttpSimulation.Models;
-using HttpSimulation.Models.InterfaceTypes;
-using System.IO.Compression;
+﻿using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
+using HttpSimulation.Models;
+using HttpSimulation.Models.InterfaceTypes;
 
 namespace HttpSimulation.Common;
 
 public sealed class ProjectZipArchive : ZipArchive
 {
-    public ProjectZipArchive(Stream stream) : base(stream)
-    {
+    public ProjectZipArchive(Stream stream)
+        : base(stream) { }
 
-    }
-
-    public ProjectZipArchive(Stream stream,ZipArchiveMode model,bool flage,Encoding encoding):base(stream,model,flage,encoding)
-    {
-        
-    }
+    public ProjectZipArchive(Stream stream, ZipArchiveMode model, bool flage, Encoding encoding)
+        : base(stream, model, flage, encoding) { }
 
     public SimulationProjcet Project { get; protected set; }
-    public List<InterfaceType> InteraceTypes { get; private set; }
+    public IEnumerable<InterfaceType> InteraceTypes { get; private set; }
 
     public bool AddProjectObject(SimulationProjcet project)
     {
@@ -30,25 +26,25 @@ public sealed class ProjectZipArchive : ZipArchive
     public async Task<SimulationProjcet> BuildAsync()
     {
         var projectStream = this.CreateEntry("Project.json");
-        using(var writer = new StreamWriter(projectStream.Open(), Encoding.UTF8))
+        using (var writer = new StreamWriter(projectStream.Open(), Encoding.UTF8))
         {
-            this.Project.LastEditTime  = DateTime.Now;
+            this.Project.LastEditTime = DateTime.Now;
             await writer.WriteAsync(JsonSerializer.Serialize(this.Project));
         }
         SimulationProjcet copyProject = (SimulationProjcet)this.Project.Clone();
 
         var interfaceStream = this.CreateEntry("Interface.json");
-        using(var writer = new StreamWriter(interfaceStream.Open(), Encoding.UTF8))
+        using (var writer = new StreamWriter(interfaceStream.Open(), Encoding.UTF8))
         {
             var options = new JsonSerializerOptions();
             options.Converters.Add(new InterfaceJsonConverter());
-            var json = JsonSerializer.Serialize(this.InteraceTypes,options);
+            var json = JsonSerializer.Serialize(this.InteraceTypes, options);
             await writer.WriteAsync(json);
         }
         return copyProject;
     }
 
-    internal void AddInterfaceObject(List<InterfaceType> interfaceTypes)
+    internal void AddInterfaceObject(IEnumerable<InterfaceType> interfaceTypes)
     {
         this.InteraceTypes = interfaceTypes;
     }
@@ -65,14 +61,20 @@ public sealed class ProjectZipArchive : ZipArchive
         {
             if (item.FullName.Contains("Project"))
             {
-                project = await JsonSerializer.DeserializeAsync<SimulationProjcet>(item.Open(), option);
+                project = await JsonSerializer.DeserializeAsync<SimulationProjcet>(
+                    item.Open(),
+                    option
+                );
             }
             if (item.FullName.Contains("Interface"))
             {
-                interfaces = await JsonSerializer.DeserializeAsync<IEnumerable<InterfaceType>>(item.Open(), option);
+                interfaces = await JsonSerializer.DeserializeAsync<IEnumerable<InterfaceType>>(
+                    item.Open(),
+                    option
+                );
             }
         }
-        if (project!=null)
+        if (project != null)
             project.Interfaces = interfaces;
         return project;
     }

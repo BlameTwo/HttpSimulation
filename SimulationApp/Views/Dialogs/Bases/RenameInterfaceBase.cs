@@ -1,5 +1,5 @@
-﻿using SimulationApp.Contracts.Bases;
-using SimulationApp.Contracts.Models;
+﻿using HttpSimulation.Models.Operation;
+using SimulationApp.Contracts.Bases;
 using SimulationApp.ViewModels.DialogViewModels.Interfaces;
 using WinUIExtentions;
 

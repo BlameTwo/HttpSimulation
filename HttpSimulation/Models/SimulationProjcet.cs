@@ -1,12 +1,12 @@
-﻿using HttpSimulation.Common;
-using HttpSimulation.Models.InterfaceTypes;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using HttpSimulation.Common;
+using HttpSimulation.Models.InterfaceTypes;
 
 namespace HttpSimulation.Models;
 
-public sealed partial class SimulationProjcet:ICloneable
+public sealed partial class SimulationProjcet : ICloneable
 {
     public SimulationProjcet(string id)
     {
@@ -41,87 +41,24 @@ public sealed partial class SimulationProjcet:ICloneable
         {
             File.Delete(path);
         }
-        using(var fs = File.Create(path))
+        using (var fs = File.Create(path))
         {
-            using (ProjectZipArchive pojZippojZip = new ProjectZipArchive(fs, System.IO.Compression.ZipArchiveMode.Create, false, Encoding.UTF8))
+            using (
+                ProjectZipArchive pojZippojZip = new ProjectZipArchive(
+                    fs,
+                    System.IO.Compression.ZipArchiveMode.Create,
+                    false,
+                    Encoding.UTF8
+                )
+            )
             {
                 pojZippojZip.AddProjectObject(this);
-                pojZippojZip.AddInterfaceObject(new List<InterfaceType>()
-                {
-                    new HttpInterface()
-                    {
-                        ID = Guid.NewGuid().ToString("N").ToUpper(),
-                        Name = "默认接口",
-                        Method = "GET"
-                    },
-                    new FolderInterface()
-                    {
-                        ID = Guid.NewGuid().ToString("N").ToUpper(),
-                        Name = "Post请求",
-                        Interfaces = new System.Collections.ObjectModel.ObservableCollection<InterfaceType>()
-                        {
-                            new HttpInterface()
-                            {
-                                ID=Guid.NewGuid().ToString("N").ToUpper(),
-                                Name = "接口1",
-                                Method = "Post"
-                            },
-                            new HttpInterface()
-                            {
-                                ID=Guid.NewGuid().ToString("N").ToUpper(),
-                                Name = "接口2",
-                                Method = "Post"
-                            },
-                            new HttpInterface()
-                            {
-                                ID=Guid.NewGuid().ToString("N").ToUpper(),
-                                Name = "接口3",
-                                Method = "Post"
-                            },new HttpInterface()
-                            {
-                                ID=Guid.NewGuid().ToString("N").ToUpper(),
-                                Name = "接口4",
-                                Method = "Post"
-                            }
-                        }
-                    },
-                    new FolderInterface()
-                    {
-                        ID = Guid.NewGuid().ToString("N").ToUpper(),
-                        Name = "Get请求",
-                        Interfaces = new System.Collections.ObjectModel.ObservableCollection<InterfaceType>()
-                        {
-                            new HttpInterface()
-                            {
-                                ID=Guid.NewGuid().ToString("N").ToUpper(),
-                                Name = "接口1",
-                                Method = "Get"
-                            },
-                            new HttpInterface()
-                            {
-                                ID=Guid.NewGuid().ToString("N").ToUpper(),
-                                Name = "接口2",
-                                Method = "Get"
-                            },
-                            new HttpInterface()
-                            {
-                                ID=Guid.NewGuid().ToString("N").ToUpper(),
-                                Name = "接口3",
-                                Method = "Get"
-                            },new HttpInterface()
-                            {
-                                ID=Guid.NewGuid().ToString("N").ToUpper(),
-                                Name = "接口4",
-                                Method = "Get"
-                            }
-                        }
-                    }
-                });
+                if (this.Interfaces != null)
+                    pojZippojZip.AddInterfaceObject(this.Interfaces.ToList());
                 return await pojZippojZip.BuildAsync();
             }
         }
     }
-
 
     public static async Task<SimulationProjcet?> ParseAsync(string path)
     {
@@ -129,16 +66,20 @@ public sealed partial class SimulationProjcet:ICloneable
             return null;
         using (var fs = File.OpenRead(path))
         {
-            using (ProjectZipArchive pojZippojZip = new ProjectZipArchive(fs, System.IO.Compression.ZipArchiveMode.Read, false, Encoding.UTF8))
-            {
-                return await pojZippojZip.GetProjectDataAsync();
-            }
+            return await ParseAsync(fs);
         }
     }
 
     public static async Task<SimulationProjcet?> ParseAsync(Stream stream)
     {
-        using (ProjectZipArchive pojZippojZip = new ProjectZipArchive(stream, System.IO.Compression.ZipArchiveMode.Read, false, Encoding.UTF8))
+        using (
+            ProjectZipArchive pojZippojZip = new ProjectZipArchive(
+                stream,
+                System.IO.Compression.ZipArchiveMode.Read,
+                false,
+                Encoding.UTF8
+            )
+        )
         {
             return await pojZippojZip.GetProjectDataAsync();
         }

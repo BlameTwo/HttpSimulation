@@ -1,16 +1,19 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using HttpSimulation.Models;
-using HttpSimulation.Models.InterfaceTypes;
-using SimulationApp.Contracts;
-using SimulationApp.Contracts.Models;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using HttpSimulation.Models;
+using HttpSimulation.Models.InterfaceTypes;
+using HttpSimulation.Models.Operation;
+using SimulationApp.Contracts;
 using WinUIExtentions.Contracts;
 
 namespace SimulationApp.ViewModels.DialogViewModels.Interfaces;
 
-public partial class AddInterfaceViewModel : ObservableObject,IContentDialogViewModel<AddInterfaceParam,AddInterfaceResult>
+public partial class AddInterfaceViewModel
+    : ObservableObject,
+        IContentDialogViewModel<AddInterfaceParam, AddInterfaceResult>
 {
     [ObservableProperty]
     AddInterfaceParam data;
@@ -41,10 +44,10 @@ public partial class AddInterfaceViewModel : ObservableObject,IContentDialogView
         }
         else
         {
-            var fillter = this.Folders.Where(x => x==SelectFolder);
-            if(fillter==null || fillter.Count() ==0)
+            var fillter = this.Folders.Where(x => x == SelectFolder);
+            if (fillter == null || fillter.Count() == 0)
             {
-                return new()
+                return new AddInterfaceResult()
                 {
                     Interface = new FolderInterface()
                     {
@@ -76,7 +79,6 @@ public partial class AddInterfaceViewModel : ObservableObject,IContentDialogView
                 };
             }
         }
-        
     }
 
     public void Update()

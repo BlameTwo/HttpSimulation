@@ -22,11 +22,11 @@ public sealed partial class ProjectMain : Page
     }
 
 
-    protected override void OnNavigatedTo(NavigationEventArgs e)
+    protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
-        if(e.Parameter is SimulationProjcet project)
+        if(e.Parameter is string project)
         {
-            this.ViewModel.SetData(project);
+            await this.ViewModel.SetDataAsync(project);
         }
         base.OnNavigatedTo(e);
     }

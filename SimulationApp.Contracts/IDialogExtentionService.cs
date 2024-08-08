@@ -1,6 +1,6 @@
-﻿using HttpSimulation.Models;
-using SimulationApp.Contracts.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using HttpSimulation.Models;
+using HttpSimulation.Models.Operation;
 using WinUIExtentions.Contracts;
 
 namespace SimulationApp.Contracts;
@@ -9,10 +9,11 @@ public interface IDialogExtentionService
 {
     public IDialogManager DialogManager { get; }
 
-    public Task ShowCreateProjectAsync();
+    public Task<AddInterfaceResult?> CreateInterfaceAsync(
+        System.Collections.Generic.List<string> list
+    );
 
-
-    public Task<AddInterfaceResult?> CreateInterfaceAsync(System.Collections.Generic.List<string> list);
+    public Task<CreateProjectResult?> CreateProjectAsync(string name);
 
     public Task<RenameResult> CreateRenameResultAsync(InterfaceType type);
 }

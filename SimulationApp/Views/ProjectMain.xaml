@@ -21,23 +21,24 @@
                     <MenuFlyout>
                         <MenuFlyoutItem
                             Command="{Binding ChangedInterfaceNameCommand}"
-                            FontSize="14"
+                            FontSize="10"
                             Text="重命名">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon
                                     FontFamily="Segoe Fluent Icons"
-                                    FontSize="14"
+                                    FontSize="2"
                                     Glyph="&#xE8AC;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutItem
                             Command="{Binding RemoveInteraceCommand}"
-                            FontSize="14"
+                            FontSize="10"
+                            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                             Text="删除">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon
                                     FontFamily="Segoe Fluent Icons"
-                                    FontSize="15"
+                                    FontSize="2"
                                     Glyph="&#xE74D;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
@@ -62,23 +63,24 @@
                     <MenuFlyout>
                         <MenuFlyoutItem
                             Command="{Binding ChangedInterfaceNameCommand}"
-                            FontSize="14"
+                            FontSize="10"
                             Text="重命名">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon
                                     FontFamily="Segoe Fluent Icons"
-                                    FontSize="14"
+                                    FontSize="2"
                                     Glyph="&#xE8AC;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutItem
                             Command="{Binding RemoveInteraceCommand}"
-                            FontSize="14"
+                            FontSize="10"
                             Text="删除">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon
                                     FontFamily="Segoe Fluent Icons"
-                                    FontSize="15"
+                                    FontSize="2"
+                                    Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                     Glyph="&#xE74D;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
@@ -121,7 +123,7 @@
                 x:Name="interfaceView"
                 Header="{x:Bind ViewModel, Mode=OneWay}"
                 ItemTemplateSelector="{ThemeResource PorjectInterfaceSelector}"
-                ItemsSource="{x:Bind ViewModel.Interfaces, Mode=OneWay}"
+                ItemsSource="{x:Bind ViewModel.ProjectService.Interfaces, Mode=OneWay}"
                 SelectedItem="{x:Bind ViewModel.SelectInterface, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <controls:HeaderedTreeView.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodel:ProjectMainViewModel">
@@ -154,23 +156,23 @@
 
                                             <MenuFlyoutItem
                                                 Command="{x:Bind CreateInterfaceTaskCommand}"
-                                                FontSize="12"
+                                                FontSize="10"
                                                 Text="接口">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon
                                                         FontFamily="Segoe Fluent Icons"
-                                                        FontSize="10"
+                                                        FontSize="2"
                                                         Glyph="&#xE67A;" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                             <MenuFlyoutItem
                                                 Command="{x:Bind CrateInterfaceFolderCommand}"
-                                                FontSize="12"
+                                                FontSize="10"
                                                 Text="文件夹">
                                                 <MenuFlyoutItem.Icon>
                                                     <FontIcon
                                                         FontFamily="Segoe Fluent Icons"
-                                                        FontSize="10"
+                                                        FontSize="2"
                                                         Glyph="&#xE8B7;" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>

@@ -21,7 +21,10 @@ public static class ProgramLife
     public static void InitService()
     {
         var service = new ServiceCollection()
-            .AddSingleton<IApplicationSetup<ClientApplication>, ApplicationSetup<ClientApplication, ShellPage>>()
+            .AddSingleton<
+                IApplicationSetup<ClientApplication>,
+                ApplicationSetup<ClientApplication, ShellPage>
+            >()
             .AddSingleton<IThemeService<ClientApplication>, ThemeService<ClientApplication>>()
             .AddSingleton<IPageService, PageService>()
             .AddSingleton<IDialogManager, DialogManager>()
@@ -30,28 +33,25 @@ public static class ProgramLife
             .AddTransient<ShellPage>()
             .AddTransient<ShellViewModel>()
             .AddSingleton<IPickersService, PickersService>()
-        #region ViewModel
+            #region ViewModel
             .AddTransient<ProjectMainViewModel>()
-        #endregion
-        #region Dialog
+            #endregion
+            #region Dialog
             .AddTransient<NewProjectDialog>()
-            .AddTransient<NewProjectViewModel>()
-
+            .AddTransient<AddProjectViewModel>()
             .AddTransient<AddInterfaceDialog>()
             .AddTransient<AddInterfaceViewModel>()
             .AddTransient<RenameInterfaceViewModel>()
             .AddTransient<RenameInterfaceDialog>()
-        #endregion
-        #region 应用扩展
+            #endregion
+            #region 应用扩展
+            .AddSingleton<IProjectService, ProjectService>()
             .AddTransient<IDialogExtentionService, DialogExtentionService>()
             .AddKeyedSingleton<INavigationService, MainNavigationService>(HostName.MainNavigation)
-        #endregion
-        #region 项目
-            .AddTransient<IProjectService,ProjectService>()
-        #endregion
+            #endregion
+            #region 项目
+            #endregion
             .BuildServiceProvider();
         Setup.InitService(service);
     }
-
-
 }

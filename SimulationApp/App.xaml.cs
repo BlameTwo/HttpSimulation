@@ -18,6 +18,7 @@ public partial class App : ClientApplication
     {
         ProgramLife.InitService();
         Setup.GetService<IPageService>().RegisterView<ProjectMain, ProjectMainViewModel>();
+        Setup.GetService<IPageService>().RegisterView<HomePage, HomeViewModel>();
         this.InitializeComponent();
     }
 

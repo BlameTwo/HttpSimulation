@@ -10,5 +10,5 @@ public interface IPickersService
 
     public FileOpenPicker GetFileOpenPicker(string[] strings);
 
-    public FileSavePicker GetFileSavePicker();
+    public FileSavePicker GetFileSavePicker(string[] extention);
 }

@@ -22,12 +22,21 @@
             TitleVerticalAlignment="Center">
             <control:TitleBar.Header>
                 <MenuBar>
-                    <MenuBarItem Title="项目">
-                        <MenuFlyoutItem Command="{x:Bind ViewModel.ShowCreateProjectCommand}" Text="新建" />
-                        <MenuFlyoutItem Command="{x:Bind ViewModel.OpenProjectCommand}" Text="打开" />
+                    <MenuBarItem Title="项目" FontSize="12">
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.ShowCreateProjectCommand}"
+                            FontSize="12"
+                            Text="新建" />
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.OpenProjectCommand}"
+                            FontSize="12"
+                            Text="打开" />
                     </MenuBarItem>
-                    <MenuBarItem Title="编辑">
-                        <MenuFlyoutItem Text="保存项目" />
+                    <MenuBarItem Title="编辑" FontSize="12">
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.SaveProjectCommand}"
+                            FontSize="12"
+                            Text="保存项目" />
                     </MenuBarItem>
                 </MenuBar>
             </control:TitleBar.Header>
