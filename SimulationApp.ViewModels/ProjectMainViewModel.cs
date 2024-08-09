@@ -1,4 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using HttpSimulation.Contracts;
@@ -7,24 +13,23 @@ using HttpSimulation.Models;
 using HttpSimulation.Models.InterfaceTypes;
 using HttpSimulation.Services;
 using SimulationApp.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SimulationApp.ViewModels;
 
-public sealed partial class ProjectMainViewModel : ObservableRecipient, IRecipient<ReInterfaceName>,IRecipient<RemoveInterface>
+public sealed partial class ProjectMainViewModel
+    : ObservableRecipient,
+        IRecipient<ReInterfaceName>,
+        IRecipient<RemoveInterface>
 {
-    public ProjectMainViewModel(IDialogExtentionService dialogExtentionService, IProjectService projectService)
+    public ProjectMainViewModel(
+        IDialogExtentionService dialogExtentionService,
+        IProjectService projectService
+    )
     {
-        DialogExtentionService=dialogExtentionService;
-        ProjectService=projectService;
-        this.IsActive=true;
+        DialogExtentionService = dialogExtentionService;
+        ProjectService = projectService;
+        this.IsActive = true;
     }
-
 
     [ObservableProperty]
     SimulationProjcet _ProjectData;
@@ -36,7 +41,6 @@ public sealed partial class ProjectMainViewModel : ObservableRecipient, IRecipie
         //this.Interfaces= new(project.Interfaces);
     }
 
-
     [ObservableProperty]
     InterfaceType selectInterface;
 
@@ -46,8 +50,12 @@ public sealed partial class ProjectMainViewModel : ObservableRecipient, IRecipie
     [RelayCommand]
     async Task CreateInterfaceTask()
     {
-        var folder = this.ProjectService.Interfaces.Where(x => x.Type == HttpSimulation.Models.Enums.RequestType.Folder).Select(x => x.Name);
-        var result = await DialogExtentionService.CreateInterfaceAsync(folder.ToList());
+        var folder = this
+            .ProjectService.Interfaces.Where(x =>
+                x.Type == HttpSimulation.Models.Enums.RequestType.Folder
+            )
+            .Select(x => x.Name);
+        var result = await DialogExtentionService.CreateInterfaceAsync(new(folder));
         if (result == null)
             return;
         ProjectService.AddInterface(result);
@@ -59,12 +67,8 @@ public sealed partial class ProjectMainViewModel : ObservableRecipient, IRecipie
         ProjectService.AddFolder();
     }
 
-
     [RelayCommand]
-    void DFF()
-    {
-
-    }
+    void DFF() { }
 
     public async void Receive(ReInterfaceName message)
     {
@@ -76,6 +80,6 @@ public sealed partial class ProjectMainViewModel : ObservableRecipient, IRecipie
 
     public void Receive(RemoveInterface message)
     {
-       ProjectService.Remove(ProjectService.Interfaces.ToList(),message.Interface); 
+        ProjectService.Remove(ProjectService.Interfaces.ToList(), message.Interface);
     }
 }

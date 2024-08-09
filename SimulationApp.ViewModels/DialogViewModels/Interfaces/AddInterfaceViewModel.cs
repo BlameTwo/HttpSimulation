@@ -69,7 +69,7 @@ public partial class AddInterfaceViewModel
             {
                 return new AddInterfaceResult()
                 {
-                    BaseFolder = SelectFolder,
+                    BaseFolders = [SelectFolder],
                     Interface = new HttpInterface()
                     {
                         ID = Guid.NewGuid().ToString("N").ToUpper(),
@@ -79,6 +79,19 @@ public partial class AddInterfaceViewModel
                 };
             }
         }
+    }
+
+    public InterfaceType? GetFirstFolder(string baseFolder, string createFolder)
+    {
+        if (baseFolder != createFolder)
+        {
+            return new FolderInterface()
+            {
+                ID = Guid.NewGuid().ToString("N").ToUpper(),
+                Name = createFolder,
+            };
+        }
+        return null;
     }
 
     public void Update()

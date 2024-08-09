@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using HttpSimulation.Models;
+using HttpSimulation.Models.InterfaceTypes;
 using HttpSimulation.Models.Operation;
 using Microsoft.UI.Xaml.Controls;
 using SimulationApp.Contracts;
@@ -54,7 +56,7 @@ public class DialogExtentionService : IDialogExtentionService
     }
 
     public async Task<AddInterfaceResult?> CreateInterfaceAsync(
-        System.Collections.Generic.List<string> list
+        ObservableCollection<string> folders
     )
     {
         return await ShowResultDialogAsync<
@@ -62,7 +64,7 @@ public class DialogExtentionService : IDialogExtentionService
             AddInterfaceParam,
             AddInterfaceResult,
             AddInterfaceViewModel
-        >(new() { BaseFolder = new(list) });
+        >(new() { BaseFolder = folders });
     }
 
     public async Task<RenameResult> CreateRenameResultAsync(InterfaceType type)
