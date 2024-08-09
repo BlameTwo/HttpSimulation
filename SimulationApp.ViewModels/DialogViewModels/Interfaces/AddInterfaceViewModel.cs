@@ -69,7 +69,7 @@ public partial class AddInterfaceViewModel
             {
                 return new AddInterfaceResult()
                 {
-                    BaseFolders = [SelectFolder],
+                    BaseFolder = SelectFolder,
                     Interface = new HttpInterface()
                     {
                         ID = Guid.NewGuid().ToString("N").ToUpper(),

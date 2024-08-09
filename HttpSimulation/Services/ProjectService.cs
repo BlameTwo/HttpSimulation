@@ -11,6 +11,8 @@ namespace HttpSimulation.Services;
 
 public sealed partial class ProjectService : ObservableRecipient, IProjectService
 {
+    private bool disposedValue;
+
     public SimulationProjcet CreateProject(string name)
     {
         SimulationProjcet proj = new SimulationProjcet(Guid.NewGuid().ToString("N"));
@@ -119,5 +121,28 @@ public sealed partial class ProjectService : ObservableRecipient, IProjectServic
             }
         );
         return true;
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing) { }
+
+            disposedValue = true;
+        }
+    }
+
+    // ~ProjectService()
+    // {
+    //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose()
+    {
+        // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

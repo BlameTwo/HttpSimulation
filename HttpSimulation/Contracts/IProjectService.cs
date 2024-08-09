@@ -1,12 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using HttpSimulation.Models;
 using HttpSimulation.Models.InterfaceTypes;
 using HttpSimulation.Models.Operation;
-using System.Collections.ObjectModel;
 
 namespace HttpSimulation.Contracts;
 
-public interface IProjectService
+public interface IProjectService : IDisposable
 {
     /// <summary>
     /// 当前项目文件
