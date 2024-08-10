@@ -1,14 +1,14 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using WinUIExtentions.Helper;
 
-namespace SimulationApp.Controls;
+namespace WinUIExtentions.Controls;
 
-public class AppTabView:TabView
+public class AppTabView : TabView
 {
     public AppTabView()
     {
-        this.DefaultStyleKey = typeof(AppTabView);
+        DefaultStyleKey = typeof(AppTabView);
     }
 
     public Visibility TabVisibility
@@ -18,15 +18,18 @@ public class AppTabView:TabView
     }
 
     // Using a DependencyProperty as the backing store for TabVisibility.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty TabVisibilityProperty =
-        DependencyProperty.Register("TabVisibility", typeof(Visibility), typeof(AppTabView), new PropertyMetadata(null));
+    public static readonly DependencyProperty TabVisibilityProperty = DependencyProperty.Register(
+        "TabVisibility",
+        typeof(Visibility),
+        typeof(AppTabView),
+        new PropertyMetadata(null)
+    );
 
     public TabAreaLength GetTabArea()
     {
         Border Area = (Border)ElementChildHelper.FindChildByName(this, "TabViewArea");
-        return new(Area.ActualHeight, Area.ActualWidth, this.ActualWidth-Area.ActualWidth);
+        return new(Area.ActualHeight, Area.ActualWidth, ActualWidth - Area.ActualWidth);
     }
-
 
     /// <summary>
     /// 不包含Y轴的拖动范围

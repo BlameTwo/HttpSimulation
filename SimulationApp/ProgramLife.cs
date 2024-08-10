@@ -12,7 +12,9 @@ using SimulationApp.Views.Dialogs.InterfaceDialog;
 using WinUIExtentions;
 using WinUIExtentions.Common;
 using WinUIExtentions.Contracts;
+using WinUIExtentions.Contracts.TabView;
 using WinUIExtentions.Services;
+using WinUIExtentions.Services.TabView;
 
 namespace SimulationApp;
 
@@ -28,6 +30,7 @@ public static class ProgramLife
             .AddSingleton<IThemeService<ClientApplication>, ThemeService<ClientApplication>>()
             .AddSingleton<IPageService, PageService>()
             .AddSingleton<IDialogManager, DialogManager>()
+            .AddSingleton<ITabViewService, TabViewService>()
             .AddSingleton<ILocalSettingsService, LocalSettingsService>()
             .AddTransient<IDataFactory, DataFactory>()
             .AddTransient<ShellPage>()
@@ -35,6 +38,9 @@ public static class ProgramLife
             .AddSingleton<IPickersService, PickersService>()
             #region ViewModel
             .AddTransient<ProjectMainViewModel>()
+            #endregion
+            #region Tab
+            .AddTransient<ProjectMain>()
             #endregion
             #region Dialog
             .AddTransient<NewProjectDialog>()
@@ -47,6 +53,7 @@ public static class ProgramLife
             #region 应用扩展
             .AddSingleton<IProjectService, ProjectService>()
             .AddTransient<IDialogExtentionService, DialogExtentionService>()
+            .AddTransient<IUserTabViewService, UserTabViewService>()
             .AddKeyedSingleton<INavigationService, MainNavigationService>(HostName.MainNavigation)
             #endregion
             #region 项目

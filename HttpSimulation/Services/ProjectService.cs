@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using HttpSimulation.Contracts;
 using HttpSimulation.Models;
@@ -128,7 +126,9 @@ public sealed partial class ProjectService : ObservableRecipient, IProjectServic
         if (!disposedValue)
         {
             if (disposing) { }
-
+            this.CurrentProjectFile = null;
+            this.Interfaces = null;
+            GC.Collect();
             disposedValue = true;
         }
     }

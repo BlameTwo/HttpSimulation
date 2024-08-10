@@ -1,4 +1,8 @@
-﻿namespace WinUIExtentions.Models;
+﻿using System;
+using WinUIExtentions.Contracts.TabView;
+
+namespace WinUIExtentions.Models;
+
 /// <summary>
 /// 视图参数
 /// </summary>
@@ -7,9 +11,19 @@
 /// <param name="IsCloseVisibility">是否支持关闭</param>
 /// <param name="Icon">图标</param>
 /// <param name="ServiceKey">服务Key</param>
-public record TabViewArgs(string ViewKey,string Header,bool IsCloseVisibility,string Icon,string ServiceKey);
+public class TabViewArgs<T, Param, VM>
+    where T : AppTabItemBase<Param, VM>
+{
+    public TabViewArgs(string Header, bool IsCloseVisibility, Param param, string PageKey)
+    {
+        this.Header = Header;
+        this.IsCloseVisibility = IsCloseVisibility;
+        this.param = param;
+        this.PageKey = PageKey;
+    }
 
-/// <summary>
-/// TabView长度改变
-/// </summary>
-public record TabLengthChangedMessager(bool args);
+    public string Header { get; }
+    public bool IsCloseVisibility { get; }
+    public Param param { get; }
+    public string PageKey { get; }
+}

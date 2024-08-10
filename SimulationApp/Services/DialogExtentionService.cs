@@ -34,10 +34,9 @@ public class DialogExtentionService : IDialogExtentionService
         {
             Content = content,
             PrimaryButtonText = "确定",
-            SecondaryButtonText = "关闭"
+            SecondaryButtonText = "关闭",
         };
         dialog.XamlRoot = DialogManager.Root;
-
         if ((await dialog.ShowAsync()) == Microsoft.UI.Xaml.Controls.ContentDialogResult.Primary)
         {
             return content.GetResult();

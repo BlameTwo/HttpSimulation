@@ -13,7 +13,6 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Styles\AppTabView.xaml" />
     <None Remove="Styles\Button.xaml" />
     <None Remove="Views\Dialogs\InterfaceDialog\AddInterfaceDialog.xaml" />
     <None Remove="Views\Dialogs\InterfaceDialog\RenameInterfaceDialog.xaml" />
@@ -63,11 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\ProjectMain.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Styles\AppTabView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

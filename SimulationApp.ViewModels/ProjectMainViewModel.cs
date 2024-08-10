@@ -34,9 +34,9 @@ public sealed partial class ProjectMainViewModel
     [ObservableProperty]
     SimulationProjcet _ProjectData;
 
-    public async Task SetDataAsync(string project)
+    public void SetData(NavigationToProject project)
     {
-        await this.ProjectService.LoadAsync(project);
+        this.ProjectService.Load(project.project);
         //this.ProjectData = project;
         //this.Interfaces= new(project.Interfaces);
     }

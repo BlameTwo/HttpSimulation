@@ -1,13 +1,12 @@
+using System.Collections.Generic;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SimulationApp.ViewModels;
-using System.Collections.Generic;
 using Windows.Graphics;
 using WinUIExtentions;
 using WinUIExtentions.Contracts;
-using static SimulationApp.Controls.AppTabView;
 using WinUIExtentions.Controls;
-using Microsoft.UI.Xaml;
-using SimulationApp.Controls;
+using static WinUIExtentions.Controls.AppTabView;
 
 namespace SimulationApp.Views;
 
@@ -17,7 +16,7 @@ public sealed partial class ShellPage : Page
     {
         this.InitializeComponent();
         this.ViewModel = Setup.GetService<ShellViewModel>();
-        ViewModel.MainNavigation.RegisterView(this.frame);
+        this.ViewModel.TabViewService.Register(this.tabview);
     }
 
     public ShellViewModel ViewModel { get; }
@@ -36,8 +35,8 @@ public sealed partial class ShellPage : Page
         var ScaleAdjustment = TitleBar.GetScaleAdjustment(window);
         rect.Y = ((int)(titlebar.ActualHeight * ScaleAdjustment));
         rect.X = (int)(tabAreaLength.x * ScaleAdjustment);
-        rect.Height = (int)(tabAreaLength.height*ScaleAdjustment);
-        rect.Width = (int)(tabAreaLength.width*ScaleAdjustment);
+        rect.Height = (int)(tabAreaLength.height * ScaleAdjustment);
+        rect.Width = (int)(tabAreaLength.width * ScaleAdjustment);
         rects.Add(rect);
         this.ContentRect = rects;
     }
@@ -48,8 +47,12 @@ public sealed partial class ShellPage : Page
         set { SetValue(ContentRectProperty, value); }
     }
 
-    public static readonly DependencyProperty ContentRectProperty =
-        DependencyProperty.Register("ContentRect", typeof(List<RectInt32>), typeof(ShellPage), new PropertyMetadata(null));
+    public static readonly DependencyProperty ContentRectProperty = DependencyProperty.Register(
+        "ContentRect",
+        typeof(List<RectInt32>),
+        typeof(ShellPage),
+        new PropertyMetadata(null)
+    );
 
     private void AppTabView_SizeChanged(object sender, SizeChangedEventArgs e)
     {

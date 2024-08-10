@@ -10,7 +10,7 @@ using WinUIExtentions.Common;
 
 namespace WinUIExtentions.Contracts;
 
-public class ApplicationSetup<App,LauncherPage> : IApplicationSetup<App>
+public class ApplicationSetup<App, LauncherPage> : IApplicationSetup<App>
     where App : ClientApplication
     where LauncherPage : Page
 {
@@ -72,13 +72,15 @@ public class ApplicationSetup<App,LauncherPage> : IApplicationSetup<App>
     {
         this.Application = app;
         this.Application.MainWindow = new();
-        this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop();
+        this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop()
+        {
+            Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt
+        };
         this.Application.MainWindow.ExtendsContentIntoTitleBar = true;
         Application.MainWindow.Content = Setup.ServiceProvider.GetService<LauncherPage>();
         this.Application.MainWindow.Activate();
         await ThemeService.InitializeAsync(app);
     }
-
 
     public void TryEnqueue(Action action)
     {
@@ -91,6 +93,4 @@ public class ApplicationSetup<App,LauncherPage> : IApplicationSetup<App>
     {
         this.NotyfiIcon = icon;
     }
-
-
 }

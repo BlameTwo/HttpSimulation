@@ -1,10 +1,10 @@
-﻿using Microsoft.UI.Xaml;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 using SimulationApp.ViewModels;
 using SimulationApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using WinUIExtentions;
 using WinUIExtentions.Common;
 using WinUIExtentions.Contracts;
@@ -17,25 +17,27 @@ public partial class App : ClientApplication
     public App()
     {
         ProgramLife.InitService();
-        Setup.GetService<IPageService>().RegisterView<ProjectMain, ProjectMainViewModel>();
-        Setup.GetService<IPageService>().RegisterView<HomePage, HomeViewModel>();
         this.InitializeComponent();
     }
 
-    protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+    protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
         Instance = AppInstance.FindOrRegisterForKey("Aria2.Client");
         Instance.Activated += Instance_Activated;
         var activatedEventArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
         if (Instance.IsCurrent)
         {
-            await Setup.GetService<ILocalSettingsService>()!.InitSetting(new Dictionary<string, object>()
-            {
-                {AppSettingKey.ThemeColor, 1},
-                {AppSettingKey.WallpaperEnable, true },
-                {"SetupFlag",true },
-                {"Trackers",new List<string>() }
-            });
+            await Setup
+                .GetService<ILocalSettingsService>()!
+                .InitSetting(
+                    new Dictionary<string, object>()
+                    {
+                        { AppSettingKey.ThemeColor, 1 },
+                        { AppSettingKey.WallpaperEnable, true },
+                        { "SetupFlag", true },
+                        { "Trackers", new List<string>() }
+                    }
+                );
             var application = Setup.GetService<IApplicationSetup<ClientApplication>>();
             await application.LauncherAsync(this, activatedEventArgs);
         }
@@ -46,9 +48,7 @@ public partial class App : ClientApplication
         }
     }
 
-    private void Instance_Activated(object sender, AppActivationArguments e)
-    {
-    }
+    private void Instance_Activated(object sender, AppActivationArguments e) { }
 
     private Window m_window;
 

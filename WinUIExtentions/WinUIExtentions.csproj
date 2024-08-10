@@ -8,6 +8,7 @@
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Styles\AppTabView.xaml" />
     <None Remove="Styles\TitleBar.xaml" />
   </ItemGroup>
 
@@ -21,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Styles\AppTabView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Styles\TitleBar.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -29,6 +34,5 @@
 
   <ItemGroup>
     <Folder Include="Bases\" />
-    <Folder Include="Contracts\TabView\" />
   </ItemGroup>
 </Project>

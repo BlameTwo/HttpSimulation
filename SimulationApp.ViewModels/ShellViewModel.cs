@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimulationApp.Contracts;
 using WinUIExtentions.Common;
 using WinUIExtentions.Contracts;
+using WinUIExtentions.Contracts.TabView;
 
 namespace SimulationApp.ViewModels;
 
@@ -16,32 +17,34 @@ public sealed partial class ShellViewModel : ObservableObject
 {
     public ShellViewModel(
         IApplicationSetup<ClientApplication> applicationSetup,
-        [FromKeyedServices(Contracts.HostName.MainNavigation)] INavigationService mainNavigation,
         IDialogExtentionService dialogExtentionService,
         IPickersService pickersService,
-        IProjectService projectService
+        IProjectService projectService,
+        IUserTabViewService userTabViewService,
+        ITabViewService tabViewService
     )
     {
         ApplicationSetup = applicationSetup;
-        MainNavigation = mainNavigation;
         DialogExtentionService = dialogExtentionService;
         PickersService = pickersService;
         ProjectService = projectService;
+        UserTabViewService = userTabViewService;
+        TabViewService = tabViewService;
     }
 
     public IApplicationSetup<ClientApplication> ApplicationSetup { get; }
-    public INavigationService MainNavigation { get; }
     public IDialogExtentionService DialogExtentionService { get; }
     public IPickersService PickersService { get; }
     public IProjectService ProjectService { get; }
+    public IUserTabViewService UserTabViewService { get; }
+    public ITabViewService TabViewService { get; }
 
     [RelayCommand]
     async Task ShowCreateProject()
     {
         var dialogResult = await DialogExtentionService.CreateProjectAsync("新项目");
-        var result = await dialogResult.project.SaveAsAsync(dialogResult.path);
-        if (result != null)
-            MainNavigation.NavigationTo<ProjectMainViewModel>(dialogResult.path);
+        await dialogResult.project.SaveAsAsync(dialogResult.path);
+        await UserTabViewService.OpenProjectAsync(dialogResult.path);
     }
 
     [RelayCommand]
@@ -52,7 +55,8 @@ public sealed partial class ShellViewModel : ObservableObject
         if (result != null)
         {
             //var projcet = await SimulationProjcet.ParseAsync((await result.OpenReadAsync()).AsStreamForRead());
-            MainNavigation.NavigationTo<ProjectMainViewModel>(result.Path);
+            //MainNavigation.NavigationTo<ProjectMainViewModel>(result.Path);
+            await UserTabViewService.OpenProjectAsync(result.Path);
         }
     }
 

@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:SimulationApp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:myControl="using:SimulationApp.Controls"
+    xmlns:myControl="using:WinUIExtentions.Controls"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
     <Grid>
@@ -41,6 +41,31 @@
                 </MenuBar>
             </control:TitleBar.Header>
         </control:TitleBar>
-        <Frame x:Name="frame" Grid.Row="1" />
+        <myControl:AppTabView
+            x:Name="tabview"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            AllowDropTabs="False"
+            Background="Transparent"
+            CloseButtonOverlayMode="OnPointerOver"
+            IsAddTabButtonVisible="False"
+            SizeChanged="AppTabView_SizeChanged">
+            <myControl:AppTabView.TabStripFooter>
+                <Button
+                    Width="30"
+                    Height="30"
+                    Margin="0,6,0,0"
+                    Padding="0"
+                    VerticalAlignment="Stretch">
+                    <FontIcon
+                        FontFamily="Segoe Fluent Icons"
+                        FontSize="14"
+                        Glyph="&#xE710;" />
+                </Button>
+            </myControl:AppTabView.TabStripFooter>
+        </myControl:AppTabView>
     </Grid>
 </Page>
