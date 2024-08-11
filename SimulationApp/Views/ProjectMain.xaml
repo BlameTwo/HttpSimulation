@@ -123,7 +123,7 @@
                 x:Name="interfaceView"
                 Header="{x:Bind ViewModel, Mode=OneWay}"
                 ItemTemplateSelector="{ThemeResource PorjectInterfaceSelector}"
-                ItemsSource="{x:Bind ViewModel.ProjectService.Interfaces, Mode=OneWay}"
+                ItemsSource="{x:Bind ViewModel.Interfaces, Mode=OneWay}"
                 SelectedItem="{x:Bind ViewModel.SelectInterface, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <controls:HeaderedTreeView.HeaderTemplate>
                     <DataTemplate x:DataType="viewmodel:ProjectMainViewModel">

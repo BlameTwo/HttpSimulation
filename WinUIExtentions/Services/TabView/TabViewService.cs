@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.UI.Xaml.Controls;
+using WinUIExtentions.Contracts;
 using WinUIExtentions.Contracts.TabView;
 using WinUIExtentions.Controls;
 using WinUIExtentions.Models;
@@ -57,13 +58,27 @@ public sealed class TabViewService : ITabViewService
         this.View.TabCloseRequested += View_TabCloseRequested;
     }
 
-    private void View_TabCloseRequested(
+    private async void View_TabCloseRequested(
         Microsoft.UI.Xaml.Controls.TabView sender,
         TabViewTabCloseRequestedEventArgs args
-    ) { }
+    )
+    {
+        if (args.Item is TabViewItem viewitem)
+        {
+            if (viewitem.Content is ITabViewType type)
+            {
+                if (type.TabItemType == TabItemType.Project)
+                {
+                    await type.SaveAsync();
+                    this.View.TabItems.Remove(viewitem);
+                }
+            }
+        }
+    }
 
     public void Unregister(AppTabView view)
     {
+        this.View.TabCloseRequested -= View_TabCloseRequested;
         this.View = null;
         GC.Collect();
     }

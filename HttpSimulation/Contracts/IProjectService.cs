@@ -13,6 +13,8 @@ public interface IProjectService : IDisposable
     /// </summary>
     public SimulationProjcet CurrentSimulationProject { get; }
 
+    public ObservableCollection<SimulationProjcet> Projects { get; }
+
     /// <summary>
     /// 当前项目文件存储地址
     /// </summary>
@@ -30,19 +32,9 @@ public interface IProjectService : IDisposable
     /// <returns></returns>
     public SimulationProjcet CreateProject(string name);
 
-    public ObservableCollection<InterfaceType> Interfaces { get; set; }
-
     public Task<bool> LoadAsync(string path);
 
     public bool Load(SimulationProjcet project);
-
-    public void ReName(ObservableCollection<InterfaceType> interfaces, string id, string newName);
-
-    public bool AddInterface(AddInterfaceResult result);
-
-    public bool AddFolder();
-
-    public void Remove(IEnumerable<InterfaceType> types, InterfaceType message);
 
     public Task<bool> SaveAsync();
 }

@@ -30,7 +30,7 @@ public class UserTabViewService : IUserTabViewService
             >(
                 project.ProjectName,
                 true,
-                new NavigationToProject(project),
+                new NavigationToProject(project, path),
                 typeof(ProjectMain).FullName + project.ID
             )
         );

@@ -23,7 +23,7 @@ public sealed partial class ShellPage : Page
 
     private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        titlebar.Window = ViewModel.ApplicationSetup.Application.MainWindow;
+        //titlebar.Window = ViewModel.ApplicationSetup.Application.MainWindow;
         Setup.GetService<IDialogManager>().RegisterRoot(this.XamlRoot);
     }
 
@@ -33,12 +33,16 @@ public sealed partial class ShellPage : Page
         List<RectInt32> rects = new List<RectInt32>();
         RectInt32 rect = new();
         var ScaleAdjustment = TitleBar.GetScaleAdjustment(window);
-        rect.Y = ((int)(titlebar.ActualHeight * ScaleAdjustment));
+        //rect.Y = ((int)(titlebar.ActualHeight * ScaleAdjustment));
+        rect.Y = 0;
         rect.X = (int)(tabAreaLength.x * ScaleAdjustment);
         rect.Height = (int)(tabAreaLength.height * ScaleAdjustment);
         rect.Width = (int)(tabAreaLength.width * ScaleAdjustment);
         rects.Add(rect);
         this.ContentRect = rects;
+        ViewModel.ApplicationSetup.Application.MainWindow.AppWindow.TitleBar.SetDragRectangles(
+            rects.ToArray()
+        );
     }
 
     public List<RectInt32> ContentRect
