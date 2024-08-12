@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using HttpSimulation.Contracts;
 using HttpSimulation.Messagers;
 using HttpSimulation.Models;
 using HttpSimulation.Models.Enums;
 using HttpSimulation.Models.InterfaceTypes;
 using HttpSimulation.Models.Operation;
+using HttpSimulation.Services;
 using SimulationApp.Contracts;
 using WinUIExtentions;
 
@@ -49,7 +49,7 @@ public sealed partial class ProjectMainViewModel : ObservableRecipient
     InterfaceType selectInterface;
 
     public IDialogExtentionService DialogExtentionService { get; }
-    public IProjectService ProjectService => Setup.GetService<IProjectService>();
+    public ProjectService ProjectService => Setup.GetService<ProjectService>();
     public string SavePath { get; private set; }
 
     [ObservableProperty]

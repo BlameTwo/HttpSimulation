@@ -2,5 +2,6 @@
 
 public enum TabItemType
 {
-    Project
+    Project,
+    Interface
 }

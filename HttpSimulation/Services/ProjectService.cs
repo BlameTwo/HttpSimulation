@@ -1,15 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.ComponentModel;
-using HttpSimulation.Contracts;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using HttpSimulation.Models;
-using HttpSimulation.Models.InterfaceTypes;
-using HttpSimulation.Models.Operation;
 
 namespace HttpSimulation.Services;
 
-public sealed partial class ProjectService : ObservableObject, IProjectService
+public sealed partial class ProjectService : ObservableObject
 {
-    private bool disposedValue;
+    private bool _disposedValue;
 
     public SimulationProjcet CreateProject(string name)
     {
@@ -60,23 +56,21 @@ public sealed partial class ProjectService : ObservableObject, IProjectService
 
     public async Task<bool> SaveAsync()
     {
-        if (this.CurrentProjectFile != null)
+        this.CurrentSimulationProject.Interfaces = this.Interfaces;
+        if (await this.CurrentSimulationProject.SaveAsAsync(CurrentProjectFile) != null)
         {
-            if (await this.CurrentSimulationProject.SaveAsAsync(CurrentProjectFile) != null)
-            {
-                return true;
-            }
+            return true;
         }
         return false;
     }
 
     private void Dispose(bool disposing)
     {
-        if (!disposedValue)
+        if (!_disposedValue)
         {
             if (disposing) { }
             GC.Collect();
-            disposedValue = true;
+            _disposedValue = true;
         }
     }
 

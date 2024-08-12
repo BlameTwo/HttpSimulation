@@ -19,19 +19,7 @@ public sealed partial class ShellPage : Page
         this.ViewModel.TabViewService.Register(this.tabview);
     }
 
-    public ShellViewModel ViewModel
-    {
-        get { return (ShellViewModel)GetValue(ViewModelProperty); }
-        set { SetValue(ViewModelProperty, value); }
-    }
-
-    // Using a DependencyProperty as the backing store for ViewModel.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(
-        "ViewModel",
-        typeof(ShellViewModel),
-        typeof(ShellPage),
-        new PropertyMetadata(null)
-    );
+    public ShellViewModel ViewModel { get; }
 
     private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
@@ -53,7 +41,7 @@ public sealed partial class ShellPage : Page
         var window = ViewModel.ApplicationSetup.Application.MainWindow;
         List<RectInt32> rects = new List<RectInt32>();
         RectInt32 rect = new();
-        var ScaleAdjustment = TitleBar.GetScaleAdjustment(window);
+        var ScaleAdjustment = WinUIExtentions.Controls.TitleBar.GetScaleAdjustment(window);
         rect.Y = 0;
         rect.X = (int)((tabAreaLength.x + leftPanel.ActualWidth + 10) * ScaleAdjustment);
         rect.Height = (int)(tabAreaLength.height * ScaleAdjustment);

@@ -72,6 +72,10 @@ public sealed class TabViewService : ITabViewService
                     await type.SaveAsync();
                     this.View.TabItems.Remove(viewitem);
                 }
+                else
+                {
+                    this.View.TabItems.Remove(viewitem);
+                }
             }
         }
     }
@@ -81,5 +85,13 @@ public sealed class TabViewService : ITabViewService
         this.View.TabCloseRequested -= View_TabCloseRequested;
         this.View = null;
         GC.Collect();
+    }
+
+    public void Close(string key)
+    {
+        if (!GetOwnerView(key, out var item))
+        {
+            this.View.TabItems.Remove(item);
+        }
     }
 }

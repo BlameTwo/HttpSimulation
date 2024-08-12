@@ -46,7 +46,7 @@ public class HttpInterface : ObservableObject, InterfaceType
     [JsonIgnore]
     public IRelayCommand OpenItemCommand => new RelayCommand(OpenItem);
 
-    private void OpenItem() { }
+    private void OpenItem() => WeakReferenceMessenger.Default.Send<OpenInterface>(new(this));
 
     private void RemoveInterface()
     {

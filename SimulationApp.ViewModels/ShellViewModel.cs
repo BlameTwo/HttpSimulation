@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using HttpSimulation.Contracts;
 using HttpSimulation.Messagers;
 using HttpSimulation.Models;
 using HttpSimulation.Models.Enums;
 using HttpSimulation.Models.InterfaceTypes;
 using HttpSimulation.Models.Operation;
+using HttpSimulation.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Shapes;
 using SimulationApp.Contracts;
@@ -24,7 +25,8 @@ namespace SimulationApp.ViewModels;
 public sealed partial class ShellViewModel
     : ObservableRecipient,
         IRecipient<ReInterfaceName>,
-        IRecipient<RemoveInterface>
+        IRecipient<RemoveInterface>,
+        IRecipient<OpenInterface>
 {
     public ShellViewModel(
         IApplicationSetup<ClientApplication> applicationSetup,
@@ -32,7 +34,7 @@ public sealed partial class ShellViewModel
         IPickersService pickersService,
         IUserTabViewService userTabViewService,
         ITabViewService tabViewService,
-        IProjectService projectService
+        ProjectService projectService
     )
     {
         ApplicationSetup = applicationSetup;
@@ -49,7 +51,7 @@ public sealed partial class ShellViewModel
     public IPickersService PickersService { get; }
     public IUserTabViewService UserTabViewService { get; }
     public ITabViewService TabViewService { get; }
-    public IProjectService ProjectService { get; }
+    public ProjectService ProjectService { get; }
 
     [RelayCommand]
     async Task ShowCreateProject()
@@ -58,7 +60,7 @@ public sealed partial class ShellViewModel
         if (dialogResult == null)
             return;
         await dialogResult.project.SaveAsAsync(dialogResult.path);
-        ProjectService.Load(dialogResult.project);
+        await ProjectService.LoadAsync(dialogResult.path);
     }
 
     [RelayCommand]
@@ -74,7 +76,7 @@ public sealed partial class ShellViewModel
         var result = await picker.PickSingleFileAsync();
         if (result == null)
             return;
-        await ProjectService.LoadAsync(result.Path);
+        var proj = await ProjectService.LoadAsync(result.Path);
     }
 
     [RelayCommand]
@@ -154,5 +156,11 @@ public sealed partial class ShellViewModel
     public void Receive(RemoveInterface message)
     {
         ProjectService.Remove(ProjectService.Interfaces.ToList(), message.Interface);
+        this.UserTabViewService.CloseTab(message.Interface.Name + message.Interface.ID);
+    }
+
+    public void Receive(OpenInterface message)
+    {
+        UserTabViewService.OpenInterface(message.Interface);
     }
 }

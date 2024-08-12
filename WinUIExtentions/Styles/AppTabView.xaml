@@ -628,7 +628,6 @@
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 ContentTransitions="{TemplateBinding ContentTransitions}"
                                 FontSize="13"
-                                FontWeight="Light"
                                 Foreground="{ThemeResource TabViewItemHeaderForeground}"
                                 HighContrastAdjustment="None"
                                 OpticalMarginAlignment="TrimSideBearings" />
@@ -689,7 +688,6 @@
                                         <Setter Target="CloseButton.Background" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonBackground}" />
                                         <Setter Target="CloseButton.Foreground" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonForeground}" />
                                         <Setter Target="LayoutRoot.Background" Value="Transparent" />
-                                        <Setter Target="ContentPresenter.FontWeight" Value="Black" />
 
                                     </VisualState.Setters>
                                 </VisualState>
@@ -711,7 +709,6 @@
                                         <Setter Target="CloseButton.Background" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonBackground}" />
                                         <Setter Target="CloseButton.Foreground" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonForeground}" />
                                         <Setter Target="LayoutRoot.Background" Value="Transparent" />
-                                        <Setter Target="ContentPresenter.FontWeight" Value="SemiBold" />
 
                                     </VisualState.Setters>
                                 </VisualState>
@@ -733,7 +730,6 @@
                                         <Setter Target="CloseButton.Background" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonBackground}" />
                                         <Setter Target="CloseButton.Foreground" Value="{ThemeResource TabViewItemHeaderSelectedCloseButtonForeground}" />
                                         <Setter Target="LayoutRoot.Background" Value="Transparent" />
-                                        <Setter Target="ContentPresenter.FontWeight" Value="SemiBold" />
 
                                     </VisualState.Setters>
                                 </VisualState>

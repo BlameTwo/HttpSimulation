@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using HttpSimulation.Messagers;
 using HttpSimulation.Models;
 using HttpSimulation.Models.InterfaceTypes;
 
@@ -14,17 +16,8 @@ partial class ProjectService
 
     public bool IsEdited { get; private set; }
 
+    [ObservableProperty]
     ObservableCollection<InterfaceType> interfaces;
-
-    public ObservableCollection<InterfaceType> Interfaces
-    {
-        get => interfaces;
-        set
-        {
-            SetProperty(ref interfaces, value);
-            OnPropertyChanged();
-        }
-    }
 
     public void ReName(ObservableCollection<InterfaceType> interfaces, string id, string newName)
     {

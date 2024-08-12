@@ -1,14 +1,14 @@
-﻿using HttpSimulation.Contracts;
-using HttpSimulation.Services;
+﻿using HttpSimulation.Services;
 using Microsoft.Extensions.DependencyInjection;
 using SimulationApp.Contracts;
 using SimulationApp.Services;
 using SimulationApp.ViewModels;
-using SimulationApp.ViewModels.DialogViewModels;
 using SimulationApp.ViewModels.DialogViewModels.Interfaces;
+using SimulationApp.ViewModels.UserControlViewModels;
 using SimulationApp.Views;
 using SimulationApp.Views.Dialogs;
 using SimulationApp.Views.Dialogs.InterfaceDialog;
+using SimulationApp.Views.UserControls;
 using WinUIExtentions;
 using WinUIExtentions.Common;
 using WinUIExtentions.Contracts;
@@ -39,10 +39,12 @@ public static class ProgramLife
             #region ViewModel
             .AddTransient<ProjectMainViewModel>()
             .AddSingleton<HomeViewModel>()
+            .AddTransient<HttpInterfaceViewModel>()
             #endregion
             #region Tab
             .AddSingleton<Home>()
             .AddTransient<ProjectMain>()
+            .AddTransient<HttpInterfaceControl>()
             #endregion
             #region Dialog
             .AddTransient<NewProjectDialog>()
@@ -53,12 +55,10 @@ public static class ProgramLife
             .AddTransient<RenameInterfaceDialog>()
             #endregion
             #region 应用扩展
-            .AddSingleton<IProjectService, ProjectService>()
+            .AddSingleton<ProjectService>()
             .AddTransient<IDialogExtentionService, DialogExtentionService>()
             .AddTransient<IUserTabViewService, UserTabViewService>()
             .AddKeyedSingleton<INavigationService, MainNavigationService>(HostName.MainNavigation)
-            #endregion
-            #region 项目
             #endregion
             .BuildServiceProvider();
         Setup.InitService(service);

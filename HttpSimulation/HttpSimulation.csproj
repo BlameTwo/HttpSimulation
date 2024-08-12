@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Contracts\" />
     <Folder Include="Models\Bases\" />
   </ItemGroup>
 

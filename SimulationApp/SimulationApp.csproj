@@ -3,6 +3,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+	  <WindowsSdkPackageVersion>10.0.22621.35-preview</WindowsSdkPackageVersion>
     <RootNamespace>SimulationApp</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
@@ -20,6 +21,7 @@
     <None Remove="Views\Home.xaml" />
     <None Remove="Views\ProjectMain.xaml" />
     <None Remove="Views\ShellPage.xaml" />
+    <None Remove="Views\UserControls\HttpInterfaceControl.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -82,6 +84,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\UserControls\HttpInterfaceControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\InterfaceDialog\RenameInterfaceDialog.xaml">

@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using HttpSimulation.Models;
 using SimulationApp.Contracts;
 using SimulationApp.ViewModels;
+using SimulationApp.ViewModels.UserControlViewModels;
 using SimulationApp.Views;
+using SimulationApp.Views.UserControls;
 using WinUIExtentions.Contracts.TabView;
 
 namespace SimulationApp.Services;
@@ -46,5 +48,24 @@ public class UserTabViewService : IUserTabViewService
                 "Home"
             )
         );
+    }
+
+    public void OpenInterface(InterfaceType type)
+    {
+        if (type.Type == HttpSimulation.Models.Enums.RequestType.Http)
+        {
+            TabViewService.NavigationTo(
+                new WinUIExtentions.Models.TabViewArgs<
+                    HttpInterfaceControl,
+                    InterfaceType,
+                    HttpInterfaceViewModel
+                >(type.Name, true, type, type.Name + type.ID)
+            );
+        }
+    }
+
+    public void CloseTab(string key)
+    {
+        this.TabViewService.Close(key);
     }
 }

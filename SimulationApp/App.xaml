@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="ms-appx:///WinUIExtentions/Styles/TitleBar.xaml" />
                 <ResourceDictionary Source="Styles/Button.xaml" />
                 <ResourceDictionary Source="ms-appx:///WinUIExtentions/Styles/AppTabView.xaml" />
+                <ResourceDictionary Source="ms-appx:///WinUIExtentions/Styles/Pivot.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </app:ClientApplication.Resources>

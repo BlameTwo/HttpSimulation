@@ -20,7 +20,7 @@ public partial class RenameInterfaceViewModel
     public RenameResult? Build()
     {
         if (!string.IsNullOrWhiteSpace(Name))
-            new RenameResult(Data.type.ID, this.Name);
+            return new RenameResult(Data.type.ID, this.Name);
         return null;
     }
 

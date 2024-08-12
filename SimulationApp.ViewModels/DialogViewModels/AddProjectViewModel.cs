@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using HttpSimulation.Contracts;
 using HttpSimulation.Models;
 using HttpSimulation.Models.Operation;
+using HttpSimulation.Services;
 using SimulationApp.Contracts;
 using WinUIExtentions.Contracts;
 
@@ -15,7 +15,7 @@ public partial class AddProjectViewModel
     : ObservableObject,
         IContentDialogViewModel<CreateProjectParam, CreateProjectResult>
 {
-    public IProjectService ProjectService { get; }
+    public ProjectService ProjectService { get; }
     public IPickersService PickersService { get; }
     public IDialogManager DialogManager { get; }
 
@@ -23,7 +23,7 @@ public partial class AddProjectViewModel
     public CreateProjectParam data;
 
     public AddProjectViewModel(
-        IProjectService projectService,
+        ProjectService projectService,
         IPickersService pickersService,
         IDialogManager dialogManager
     )

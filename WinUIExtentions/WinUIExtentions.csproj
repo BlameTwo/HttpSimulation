@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Styles\AppTabView.xaml" />
+    <None Remove="Styles\Pivot.xaml" />
     <None Remove="Styles\TitleBar.xaml" />
   </ItemGroup>
 
@@ -34,5 +35,13 @@
 
   <ItemGroup>
     <Folder Include="Bases\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <CustomAdditionalCompileInputs Remove="Styles\Pivot.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Remove="Styles\Pivot.xaml" />
   </ItemGroup>
 </Project>

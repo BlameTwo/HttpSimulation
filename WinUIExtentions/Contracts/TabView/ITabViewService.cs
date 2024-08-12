@@ -13,4 +13,5 @@ public interface ITabViewService
     public void Unregister(AppTabView view);
     public void NavigationTo<T, Param, VM>(TabViewArgs<T, Param, VM> args)
         where T : AppTabItemBase<Param, VM>;
+    void Close(string key);
 }
