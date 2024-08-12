@@ -17,7 +17,7 @@
     <None Remove="Views\Dialogs\InterfaceDialog\AddInterfaceDialog.xaml" />
     <None Remove="Views\Dialogs\InterfaceDialog\RenameInterfaceDialog.xaml" />
     <None Remove="Views\Dialogs\NewProjectDialog.xaml" />
-    <None Remove="Views\HomePage.xaml" />
+    <None Remove="Views\Home.xaml" />
     <None Remove="Views\ProjectMain.xaml" />
     <None Remove="Views\ShellPage.xaml" />
   </ItemGroup>
@@ -97,10 +97,4 @@
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
-  <ItemGroup>
-    <CustomAdditionalCompileInputs Remove="Views\HomePage.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Remove="Views\HomePage.xaml" />
-  </ItemGroup>
 </Project>

@@ -220,6 +220,10 @@ public sealed partial class ProjectMainViewModel
     public async Task<bool> SaveAsync()
     {
         this.ProjectData.Interfaces = this.Interfaces;
-        return (await this.ProjectData.SaveAsAsync(this.SavePath)) == null ? false : true;
+        var result = (await this.ProjectData.SaveAsAsync(this.SavePath)) == null ? false : true;
+        this.ProjectData = null;
+        this.Interfaces.Clear();
+        this.Interfaces = null;
+        return result;
     }
 }

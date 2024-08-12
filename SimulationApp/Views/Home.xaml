@@ -1,0 +1,40 @@
+<base:HomeView
+    x:Class="SimulationApp.Views.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="using:SimulationApp.Views.Bases"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:SimulationApp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Padding="20">
+                <StackPanel Orientation="Vertical">
+                    <FontIcon
+                        FontFamily="Segoe Fluent Icons"
+                        FontSize="27"
+                        Glyph="&#xE710;" />
+                    <TextBlock Margin="0,10,0,0" Text="Create Project" />
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Column="1"
+                Margin="5,0,0,0"
+                Padding="20">
+                <StackPanel Orientation="Vertical">
+                    <FontIcon
+                        FontFamily="Segoe Fluent Icons"
+                        FontSize="27"
+                        Glyph="&#xE8A7;" />
+                    <TextBlock Margin="0,10,0,0" Text="Open Project" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Border>
+
+</base:HomeView>

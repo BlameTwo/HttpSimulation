@@ -38,8 +38,10 @@ public static class ProgramLife
             .AddSingleton<IPickersService, PickersService>()
             #region ViewModel
             .AddTransient<ProjectMainViewModel>()
+            .AddSingleton<HomeViewModel>()
             #endregion
             #region Tab
+            .AddSingleton<Home>()
             .AddTransient<ProjectMain>()
             #endregion
             #region Dialog

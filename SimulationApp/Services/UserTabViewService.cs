@@ -35,4 +35,16 @@ public class UserTabViewService : IUserTabViewService
             )
         );
     }
+
+    public void OpenHome()
+    {
+        TabViewService.NavigationTo(
+            new WinUIExtentions.Models.TabViewArgs<Home, NavigationToHome, HomeViewModel>(
+                "首页",
+                false,
+                new(),
+                "Home"
+            )
+        );
+    }
 }

@@ -8,23 +8,16 @@ using WinUIExtentions.Models;
 
 namespace SimulationApp.Views.Bases;
 
-public class ProjectView : AppTabItemBase<NavigationToProject, ProjectMainViewModel>, ITabViewType
+public class HomeView : AppTabItemBase<NavigationToHome, HomeViewModel>
 {
-    public ProjectView()
+    public HomeView()
     {
-        this.ViewModel = Setup.GetService<ProjectMainViewModel>();
+        this.ViewModel = Setup.GetService<HomeViewModel>();
     }
 
     public TabItemType TabItemType => TabItemType.Project;
 
-    public async Task<bool> SaveAsync()
-    {
-        var result = await ViewModel.SaveAsync();
-        ViewModel = null;
-        return result;
-    }
-
-    public override void SetParam(NavigationToProject param)
+    public override void SetParam(NavigationToHome param)
     {
         this.ViewModel.SetData(param);
     }

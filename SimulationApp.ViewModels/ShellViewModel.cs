@@ -48,6 +48,12 @@ public sealed partial class ShellViewModel : ObservableObject
     }
 
     [RelayCommand]
+    void Loaded()
+    {
+        UserTabViewService.OpenHome();
+    }
+
+    [RelayCommand]
     async Task OpenProjectAsync()
     {
         var picker = PickersService.GetFileOpenPicker(new string[] { ".zip" });

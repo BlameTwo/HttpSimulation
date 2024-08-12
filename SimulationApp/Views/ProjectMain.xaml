@@ -59,8 +59,26 @@
         </DataTemplate>
         <DataTemplate x:Key="DefaultTemplate">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="DoubleTapped">
+                        <core:InvokeCommandAction Command="{Binding OpenItemCommand}" />
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
                 <StackPanel.ContextFlyout>
                     <MenuFlyout>
+                        <MenuFlyoutItem
+                            Command="{Binding OpenItemCommand}"
+                            FontSize="10"
+                            Text="打开">
+                            <MenuFlyoutItem.Icon>
+
+                                <FontIcon
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="2"
+                                    Glyph="&#xE8E5;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator />
                         <MenuFlyoutItem
                             Command="{Binding ChangedInterfaceNameCommand}"
                             FontSize="10"
@@ -196,30 +214,14 @@
             Grid.Column="1"
             Cursor="Hand" />
         <Grid
+            x:Name="contentView"
+            Grid.Row="0"
+            Grid.RowSpan="3"
             Grid.Column="2"
+            Grid.ColumnSpan="3"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="5" />
-        <controls:GridSplitter
-            Grid.Row="1"
-            Grid.Column="2"
-            Grid.ColumnSpan="3"
-            Cursor="Hand"
-            Orientation="Horizontal" />
-        <Grid
-            x:Name="contentView"
-            Grid.Row="2"
-            Grid.Column="2"
-            Grid.ColumnSpan="3"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1"
-            CornerRadius="5">
-            <SelectorBar>
-                <SelectorBarItem Text="预览" />
-                <SelectorBarItem Text="结果" />
-            </SelectorBar>
-        </Grid>
     </Grid>
 </view:ProjectView>
