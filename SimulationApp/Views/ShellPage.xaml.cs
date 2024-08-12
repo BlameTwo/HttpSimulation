@@ -19,12 +19,33 @@ public sealed partial class ShellPage : Page
         this.ViewModel.TabViewService.Register(this.tabview);
     }
 
-    public ShellViewModel ViewModel { get; }
+    public ShellViewModel ViewModel
+    {
+        get { return (ShellViewModel)GetValue(ViewModelProperty); }
+        set { SetValue(ViewModelProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for ViewModel.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(
+        "ViewModel",
+        typeof(ShellViewModel),
+        typeof(ShellPage),
+        new PropertyMetadata(null)
+    );
 
     private void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         //titlebar.Window = ViewModel.ApplicationSetup.Application.MainWindow;
         Setup.GetService<IDialogManager>().RegisterRoot(this.XamlRoot);
+        this.SizeChanged += ShellPage_SizeChanged;
+    }
+
+    private void ShellPage_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (tabview is AppTabView view)
+        {
+            SetDragArea(view.GetTabArea());
+        }
     }
 
     private void SetDragArea(TabAreaLength tabAreaLength)
@@ -33,15 +54,14 @@ public sealed partial class ShellPage : Page
         List<RectInt32> rects = new List<RectInt32>();
         RectInt32 rect = new();
         var ScaleAdjustment = TitleBar.GetScaleAdjustment(window);
-        //rect.Y = ((int)(titlebar.ActualHeight * ScaleAdjustment));
         rect.Y = 0;
-        rect.X = (int)(tabAreaLength.x * ScaleAdjustment);
+        rect.X = (int)((tabAreaLength.x + leftPanel.ActualWidth + 10) * ScaleAdjustment);
         rect.Height = (int)(tabAreaLength.height * ScaleAdjustment);
         rect.Width = (int)(tabAreaLength.width * ScaleAdjustment);
         rects.Add(rect);
         this.ContentRect = rects;
         ViewModel.ApplicationSetup.Application.MainWindow.AppWindow.TitleBar.SetDragRectangles(
-            rects.ToArray()
+            this.ContentRect.ToArray()
         );
     }
 

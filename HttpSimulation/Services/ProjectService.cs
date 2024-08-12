@@ -7,16 +7,9 @@ using HttpSimulation.Models.Operation;
 
 namespace HttpSimulation.Services;
 
-public sealed partial class ProjectService : ObservableRecipient, IProjectService
+public sealed partial class ProjectService : ObservableObject, IProjectService
 {
     private bool disposedValue;
-
-    public ProjectService()
-    {
-        this.Projects = new();
-    }
-
-    public ObservableCollection<SimulationProjcet> Projects { get; }
 
     public SimulationProjcet CreateProject(string name)
     {
@@ -35,14 +28,28 @@ public sealed partial class ProjectService : ObservableRecipient, IProjectServic
         }
         this.CurrentProjectFile = path;
         this.CurrentSimulationProject = project;
-        this.Projects.Add(project);
+        if (project.Interfaces == null)
+        {
+            this.Interfaces = new();
+        }
+        else
+        {
+            this.Interfaces = new(project.Interfaces);
+        }
         return true;
     }
 
     public bool Load(SimulationProjcet project)
     {
         this.CurrentSimulationProject = project;
-        this.Projects.Add(project);
+        if (project.Interfaces == null)
+        {
+            this.Interfaces = new();
+        }
+        else
+        {
+            this.Interfaces = new(project.Interfaces);
+        }
         return true;
     }
 

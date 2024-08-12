@@ -74,7 +74,7 @@ public class ApplicationSetup<App, LauncherPage> : IApplicationSetup<App>
         this.Application.MainWindow = new();
         this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop()
         {
-            Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.BaseAlt
+            Kind = Microsoft.UI.Composition.SystemBackdrops.MicaKind.Base
         };
         this.Application.MainWindow.ExtendsContentIntoTitleBar = true;
         Application.MainWindow.Content = Setup.ServiceProvider.GetService<LauncherPage>();

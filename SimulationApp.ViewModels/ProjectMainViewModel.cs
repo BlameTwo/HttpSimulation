@@ -15,21 +15,15 @@ using HttpSimulation.Models.Enums;
 using HttpSimulation.Models.InterfaceTypes;
 using HttpSimulation.Models.Operation;
 using SimulationApp.Contracts;
+using WinUIExtentions;
 
 namespace SimulationApp.ViewModels;
 
-public sealed partial class ProjectMainViewModel
-    : ObservableRecipient,
-        IRecipient<ReInterfaceName>,
-        IRecipient<RemoveInterface>
+public sealed partial class ProjectMainViewModel : ObservableRecipient
 {
-    public ProjectMainViewModel(
-        IDialogExtentionService dialogExtentionService,
-        IProjectService projectService
-    )
+    public ProjectMainViewModel(IDialogExtentionService dialogExtentionService)
     {
         DialogExtentionService = dialogExtentionService;
-        ProjectService = projectService;
         this.IsActive = true;
     }
 
@@ -55,7 +49,7 @@ public sealed partial class ProjectMainViewModel
     InterfaceType selectInterface;
 
     public IDialogExtentionService DialogExtentionService { get; }
-    public IProjectService ProjectService { get; }
+    public IProjectService ProjectService => Setup.GetService<IProjectService>();
     public string SavePath { get; private set; }
 
     [ObservableProperty]
@@ -105,7 +99,9 @@ public sealed partial class ProjectMainViewModel
 
     public bool AddFolder()
     {
-        var name = GenerateNextFolderName(this.Interfaces.Select(x => x.Name).ToList());
+        var name = ProjectService.GenerateNextFolderName(
+            this.Interfaces.Select(x => x.Name).ToList()
+        );
         this.Interfaces.Add(
             new FolderInterface()
             {
@@ -115,106 +111,6 @@ public sealed partial class ProjectMainViewModel
             }
         );
         return true;
-    }
-
-    public void ReName(ObservableCollection<InterfaceType> interfaces, string id, string newName)
-    {
-        foreach (var iface in interfaces)
-        {
-            if (iface.ID == id)
-            {
-                iface.Name = newName;
-            }
-            if (iface.Type == HttpSimulation.Models.Enums.RequestType.Folder)
-            {
-                var list = iface as FolderInterface;
-                ReName(list.Interfaces, id, newName);
-            }
-        }
-    }
-
-    public void Remove(IEnumerable<InterfaceType> types, InterfaceType message)
-    {
-        foreach (var iface in types)
-        {
-            if (iface.Type == HttpSimulation.Models.Enums.RequestType.Folder)
-            {
-                if (iface.ID == message.ID)
-                {
-                    Interfaces.Remove(iface);
-                }
-                var list = iface as FolderInterface;
-                var remove = RemoveFolder(list.Interfaces, message);
-                if (remove == null)
-                    continue;
-                list.Interfaces = new(remove);
-                break;
-            }
-            if (iface.ID == message.ID)
-            {
-                Interfaces.Remove(iface);
-            }
-        }
-    }
-
-    private IEnumerable<InterfaceType>? RemoveFolder(
-        ObservableCollection<InterfaceType> interfaces,
-        InterfaceType message
-    )
-    {
-        foreach (var iface in interfaces)
-        {
-            var list = iface as FolderInterface;
-            foreach (var iface2 in interfaces.ToList())
-            {
-                if (iface2.ID == message.ID)
-                {
-                    interfaces.Remove(iface2);
-                    return interfaces;
-                }
-            }
-        }
-        return null;
-    }
-
-    public string GenerateNextFolderName(List<string> folders)
-    {
-        int maxNumber = 0;
-        bool hasMatchingFolders = false;
-
-        foreach (var folder in folders)
-        {
-            var match = Regex.Match(folder, @"新建文件夹\((\d+)\)");
-            if (match.Success)
-            {
-                hasMatchingFolders = true;
-                int number = int.Parse(match.Groups[1].Value);
-                if (number > maxNumber)
-                {
-                    maxNumber = number;
-                }
-            }
-        }
-        if (!hasMatchingFolders)
-        {
-            maxNumber = 0;
-        }
-
-        // 生成新的文件夹名
-        return $"新建文件夹({maxNumber + 1})";
-    }
-
-    public async void Receive(ReInterfaceName message)
-    {
-        var result = await DialogExtentionService.CreateRenameResultAsync(message.Interface);
-        if (result == null)
-            return;
-        ReName(Interfaces, result.id, result.newName);
-    }
-
-    public void Receive(RemoveInterface message)
-    {
-        Remove(Interfaces.ToList(), message.Interface);
     }
 
     public async Task<bool> SaveAsync()
