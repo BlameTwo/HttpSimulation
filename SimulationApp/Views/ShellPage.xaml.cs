@@ -1,7 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using HttpSimulation.Models;
+using HttpSimulation.Models.InterfaceTypes;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using SimulationApp.ViewModels;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics;
 using WinUIExtentions;
 using WinUIExtentions.Contracts;

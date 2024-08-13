@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:control="using:CommunityToolkit.WinUI.Controls"
-    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:controls="using:Syncfusion.UI.Xaml.TreeView"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
@@ -16,8 +16,8 @@
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="FolderTemplate">
-            <TreeViewItem IsExpanded="True" ItemsSource="{Binding Interfaces, Mode=OneWay}">
-                <TreeViewItem.ContextFlyout>
+            <Grid>
+                <Grid.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem
                             Command="{Binding ChangedInterfaceNameCommand}"
@@ -43,7 +43,7 @@
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuFlyout>
-                </TreeViewItem.ContextFlyout>
+                </Grid.ContextFlyout>
                 <StackPanel Orientation="Horizontal">
                     <FontIcon
                         FontFamily="Segoe Fluent Icons"
@@ -55,7 +55,7 @@
                         FontSize="12"
                         Text="{Binding Name, Mode=OneWay}" />
                 </StackPanel>
-            </TreeViewItem>
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="DefaultTemplate">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
@@ -161,78 +161,84 @@
                         Glyph="&#xF8B0;" />
                 </Button>
             </StackPanel>
-            <controls:HeaderedTreeView
-                x:Name="interfaceView"
-                Grid.Row="1"
-                Header="{x:Bind ViewModel, Mode=OneWay}"
-                ItemTemplateSelector="{ThemeResource PorjectInterfaceSelector}"
-                ItemsSource="{x:Bind ViewModel.ProjectService.Interfaces, Mode=OneWay}">
-                <!--    -->
-                <controls:HeaderedTreeView.HeaderTemplate>
-                    <DataTemplate x:DataType="viewmodel:ShellViewModel">
-                        <Grid Margin="10" HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Margin="0,0,0,0"
-                                VerticalAlignment="Center"
-                                FontSize="12"
-                                Text="Interface" />
-                            <StackPanel
-                                Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                Orientation="Horizontal">
-                                <Button
-                                    Padding="5"
-                                    VerticalAlignment="Center"
-                                    CornerRadius="5"
-                                    Style="{ThemeResource TransparentButtonStyle}">
-                                    <FontIcon
-                                        FontFamily="Segoe Fluent Icons"
-                                        FontSize="14"
-                                        Glyph="&#xE710;" />
-                                    <Button.Flyout>
-                                        <MenuFlyout Placement="Bottom">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid Margin="10" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Margin="0,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Text="Interface" />
+                    <StackPanel
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Orientation="Horizontal">
+                        <Button
+                            Padding="5"
+                            VerticalAlignment="Center"
+                            CornerRadius="5"
+                            Style="{ThemeResource TransparentButtonStyle}">
+                            <FontIcon
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="14"
+                                Glyph="&#xE710;" />
+                            <Button.Flyout>
+                                <MenuFlyout Placement="Bottom">
 
-                                            <MenuFlyoutItem
-                                                Command="{x:Bind CreateInterfaceTaskCommand}"
-                                                FontSize="10"
-                                                Text="Interface">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon
-                                                        FontFamily="Segoe Fluent Icons"
-                                                        FontSize="2"
-                                                        Glyph="&#xE67A;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-                                            <MenuFlyoutItem
-                                                Command="{x:Bind CrateInterfaceFolderCommand}"
-                                                FontSize="10"
-                                                Text="Folder">
-                                                <MenuFlyoutItem.Icon>
-                                                    <FontIcon
-                                                        FontFamily="Segoe Fluent Icons"
-                                                        FontSize="2"
-                                                        Glyph="&#xE8B7;" />
-                                                </MenuFlyoutItem.Icon>
-                                            </MenuFlyoutItem>
-                                        </MenuFlyout>
-                                    </Button.Flyout>
-                                </Button>
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </controls:HeaderedTreeView.HeaderTemplate>
-                <controls:HeaderedTreeView.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <RepositionThemeTransition />
-                        <AddDeleteThemeTransition />
-                    </TransitionCollection>
-                </controls:HeaderedTreeView.ItemContainerTransitions>
-            </controls:HeaderedTreeView>
+                                    <MenuFlyoutItem
+                                        Command="{x:Bind ViewModel.CreateInterfaceTaskCommand}"
+                                        FontSize="10"
+                                        Text="Interface">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon
+                                                FontFamily="Segoe Fluent Icons"
+                                                FontSize="2"
+                                                Glyph="&#xE67A;" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem
+                                        Command="{x:Bind ViewModel.CrateInterfaceFolderCommand}"
+                                        FontSize="10"
+                                        Text="Folder">
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon
+                                                FontFamily="Segoe Fluent Icons"
+                                                FontSize="2"
+                                                Glyph="&#xE8B7;" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <controls:SfTreeView
+                    x:Name="interfaceView"
+                    Grid.Row="1"
+                    AllowDrop="True"
+                    AutoExpandMode="RootNodes"
+                    CanDrag="True"
+                    ChildPropertyName="Interfaces"
+                    IsAnimationEnabled="False"
+                    ItemTemplateSelector="{ThemeResource PorjectInterfaceSelector}"
+                    ItemsSource="{x:Bind ViewModel.ProjectService.Interfaces, Mode=OneWay}">
+                    <controls:SfTreeView.Transitions>
+                        <TransitionCollection>
+                            <RepositionThemeTransition />
+                            <AddDeleteThemeTransition />
+                        </TransitionCollection>
+                    </controls:SfTreeView.Transitions>
+                </controls:SfTreeView>
+            </Grid>
+
         </Grid>
         <control:GridSplitter Grid.Column="1" />
         <myControl:AppTabView

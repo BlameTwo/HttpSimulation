@@ -16,6 +16,9 @@ public partial class App : ClientApplication
 {
     public App()
     {
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
+            "MzQyODc0NUAzMjM2MmUzMDJlMzBCbTdmRmNZR2pFVWVEaTBHWU9Rck9CYnd4WXgzbGVtcGZhazJsMXFQUWlnPQ=="
+        );
         ProgramLife.InitService();
         this.InitializeComponent();
     }

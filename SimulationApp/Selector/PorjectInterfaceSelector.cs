@@ -5,20 +5,32 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace SimulationApp.Selector
 {
-    public class PorjectInterfaceSelector:DataTemplateSelector
+    public class PorjectInterfaceSelector : DataTemplateSelector
     {
         public DataTemplate FolderTemplate { get; set; }
 
         public DataTemplate DefaultTemplate { get; set; }
 
-
         protected override DataTemplate SelectTemplateCore(object item)
         {
-            if(item is FolderInterface)
+            if (item is FolderInterface)
             {
                 return FolderTemplate;
             }
             return DefaultTemplate;
+        }
+
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            if (item is Syncfusion.UI.Xaml.TreeView.TreeViewNode node)
+            {
+                if (node.Content is FolderInterface)
+                {
+                    return FolderTemplate;
+                }
+                return DefaultTemplate;
+            }
+            return base.SelectTemplateCore(item, container);
         }
     }
 }
