@@ -96,53 +96,13 @@ public sealed partial class ShellViewModel
         var result = await DialogExtentionService.CreateInterfaceAsync(new(folder));
         if (result == null)
             return;
-        AddInterface(result);
-    }
-
-    public bool AddInterface(AddInterfaceResult result)
-    {
-        var folder = this
-            .ProjectService.Interfaces.Where(x => x.Type == RequestType.Folder)
-            .Select(x => x.Name)
-            .ToList();
-        if (folder.Contains(result.BaseFolder))
-        {
-            foreach (var item in ProjectService.Interfaces)
-            {
-                if (
-                    item.Type == HttpSimulation.Models.Enums.RequestType.Folder
-                    && item.Name == result.BaseFolder
-                )
-                {
-                    (item as FolderInterface).Interfaces.Add(result.Interface);
-                }
-            }
-            return false;
-        }
-        ProjectService.Interfaces.Add(result.Interface);
-        return true;
+        ProjectService.AddInterface(result);
     }
 
     [RelayCommand]
     void CrateInterfaceFolder()
     {
-        AddFolder();
-    }
-
-    public bool AddFolder()
-    {
-        var name = ProjectService.GenerateNextFolderName(
-            this.ProjectService.Interfaces.Select(x => x.Name).ToList()
-        );
-        this.ProjectService.Interfaces.Add(
-            new FolderInterface()
-            {
-                ID = Guid.NewGuid().ToString("N").ToUpper(),
-                Name = name,
-                Interfaces = new()
-            }
-        );
-        return true;
+        ProjectService.AddFolder();
     }
 
     public async void Receive(ReInterfaceName message)

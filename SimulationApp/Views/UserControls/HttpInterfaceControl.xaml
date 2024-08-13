@@ -7,8 +7,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:SimulationApp.Views.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="using:CommunityToolkit.Labs.WinUI.MarkdownTextBlock"
+    xmlns:syncfusion="using:Syncfusion.UI.Xaml.Editors"
     mc:Ignorable="d">
-
+    <control:HttpInterfaceView.Transitions>
+        <TransitionCollection>
+            <ContentThemeTransition />
+            <AddDeleteThemeTransition />
+        </TransitionCollection>
+    </control:HttpInterfaceView.Transitions>
     <Grid Padding="5" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -59,33 +66,33 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            <SelectorBar>
-                <SelectorBarItem Text="参数">
-                    <SelectorBarItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEA8B;" />
-                    </SelectorBarItem.Icon>
-                </SelectorBarItem>
-                <SelectorBarItem Text="Body">
-                    <SelectorBarItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE727;" />
-                    </SelectorBarItem.Icon>
-                </SelectorBarItem>
-                <SelectorBarItem Text="Header">
-                    <SelectorBarItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEBE6;" />
-                    </SelectorBarItem.Icon>
-                </SelectorBarItem>
-                <SelectorBarItem Text="Cookie">
-                    <SelectorBarItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF354;" />
-                    </SelectorBarItem.Icon>
-                </SelectorBarItem>
-                <SelectorBarItem Text="Auth">
-                    <SelectorBarItem.Icon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE631;" />
-                    </SelectorBarItem.Icon>
-                </SelectorBarItem>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <SelectorBar
+                x:Name="colors"
+                Background="Transparent"
+                BorderThickness="0">
+                <SelectorBarItem Text="Params" />
+                <SelectorBarItem Text="Body" />
+                <SelectorBarItem Text="Cookie" />
+                <SelectorBarItem Text="Auth" />
             </SelectorBar>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    x:Name="source"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap" />
+                <md:MarkdownTextBlock
+                    x:Name="markdown"
+                    Grid.Column="1"
+                    Text="{x:Bind source.Text, Mode=OneWay}" />
+            </Grid>
         </Grid>
         <controls:GridSplitter Grid.Row="2" />
     </Grid>

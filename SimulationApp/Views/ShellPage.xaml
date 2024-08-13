@@ -223,20 +223,15 @@
                 <controls:SfTreeView
                     x:Name="interfaceView"
                     Grid.Row="1"
+                    AllowDeleting="True"
                     AllowDrop="True"
+                    AllowEditing="True"
                     AutoExpandMode="RootNodes"
                     CanDrag="True"
                     ChildPropertyName="Interfaces"
                     IsAnimationEnabled="False"
                     ItemTemplateSelector="{ThemeResource PorjectInterfaceSelector}"
-                    ItemsSource="{x:Bind ViewModel.ProjectService.Interfaces, Mode=OneWay}">
-                    <controls:SfTreeView.Transitions>
-                        <TransitionCollection>
-                            <RepositionThemeTransition />
-                            <AddDeleteThemeTransition />
-                        </TransitionCollection>
-                    </controls:SfTreeView.Transitions>
-                </controls:SfTreeView>
+                    ItemsSource="{x:Bind ViewModel.ProjectService.Interfaces, Mode=OneWay}" />
             </Grid>
 
         </Grid>
@@ -253,6 +248,7 @@
             CloseButtonOverlayMode="OnPointerOver"
             IsAddTabButtonVisible="False"
             SizeChanged="AppTabView_SizeChanged">
+
             <myControl:AppTabView.TabStripFooter>
                 <Button
                     Width="30"

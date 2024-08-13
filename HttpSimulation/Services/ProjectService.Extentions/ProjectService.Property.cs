@@ -19,66 +19,6 @@ partial class ProjectService
     [ObservableProperty]
     ObservableCollection<InterfaceType> interfaces;
 
-    public void ReName(ObservableCollection<InterfaceType> interfaces, string id, string newName)
-    {
-        foreach (var iface in interfaces)
-        {
-            if (iface.ID == id)
-            {
-                iface.Name = newName;
-            }
-            if (iface.Type == HttpSimulation.Models.Enums.RequestType.Folder)
-            {
-                var list = iface as FolderInterface;
-                ReName(list.Interfaces, id, newName);
-            }
-        }
-    }
-
-    public void Remove(IEnumerable<InterfaceType> types, InterfaceType message)
-    {
-        foreach (var iface in types)
-        {
-            if (iface.Type == HttpSimulation.Models.Enums.RequestType.Folder)
-            {
-                if (iface.ID == message.ID)
-                {
-                    Interfaces.Remove(iface);
-                }
-                var list = iface as FolderInterface;
-                var remove = RemoveFolder(list.Interfaces, message);
-                if (remove == null)
-                    continue;
-                list.Interfaces = new(remove);
-                break;
-            }
-            if (iface.ID == message.ID)
-            {
-                Interfaces.Remove(iface);
-            }
-        }
-    }
-
-    private IEnumerable<InterfaceType>? RemoveFolder(
-        ObservableCollection<InterfaceType> interfaces,
-        InterfaceType message
-    )
-    {
-        foreach (var iface in interfaces)
-        {
-            var list = iface as FolderInterface;
-            foreach (var iface2 in interfaces.ToList())
-            {
-                if (iface2.ID == message.ID)
-                {
-                    interfaces.Remove(iface2);
-                    return interfaces;
-                }
-            }
-        }
-        return null;
-    }
-
     public string GenerateNextFolderName(List<string> folders)
     {
         int maxNumber = 0;

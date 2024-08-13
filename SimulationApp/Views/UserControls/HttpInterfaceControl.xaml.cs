@@ -10,6 +10,7 @@ namespace SimulationApp.Views.UserControls
         public HttpInterfaceControl()
         {
             this.InitializeComponent();
+            markdown.Config = new CommunityToolkit.Labs.WinUI.MarkdownTextBlock.MarkdownConfig();
         }
 
         public TabItemType TabItemType => TabItemType.Interface;
