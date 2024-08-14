@@ -6,6 +6,8 @@
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dataGrid="using:Syncfusion.UI.Xaml.DataGrid"
+    xmlns:httoViewmodel="using:SimulationApp.ViewModels.HttpViewModels"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:SimulationApp.Views.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -73,11 +75,11 @@
                 VerticalAlignment="Center"
                 VerticalContentAlignment="Center"
                 FontSize="13"
-                PlaceholderText="输入一个完整的url"
                 Text="{x:Bind ViewModel.Method.Data.Uri, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <Button
                     Margin="5,0,0,0"
+                    Command="{x:Bind ViewModel.SendCommand}"
                     CornerRadius="10"
                     Style="{ThemeResource TransparentButtonStyle}">
                     <FontIcon
@@ -106,13 +108,35 @@
                 x:Name="colors"
                 Padding="0"
                 Background="Transparent"
-                BorderThickness="0">
+                BorderThickness="0"
+                SelectedItem="{x:Bind ViewModel.SelectorBaritem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <SelectorBarItem FontSize="12" Text="Params" />
                 <SelectorBarItem FontSize="12" Text="Body" />
                 <SelectorBarItem FontSize="12" Text="Cookie" />
                 <SelectorBarItem FontSize="12" Text="Auth" />
             </SelectorBar>
-
+            <ContentPresenter
+                Grid.Row="1"
+                Content="{x:Bind ViewModel.ParamViewModel, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.SetParamVisibility, Mode=OneWay}">
+                <ContentPresenter.ContentTemplate>
+                    <DataTemplate x:DataType="httoViewmodel:HttpGetParamViewModel">
+                        <dataGrid:SfDataGrid
+                            Margin="0,5,0,0"
+                            AddNewRowPosition="Bottom"
+                            AllowDeleting="True"
+                            AllowEditing="True"
+                            AllowSorting="False"
+                            ColumnWidthMode="Star"
+                            CornerRadius="5"
+                            DetailsViewPadding="10"
+                            FontSize="18"
+                            HeaderRowHeight="25"
+                            ItemsSource="{x:Bind GetParams, Mode=OneWay}"
+                            RowHeight="30" />
+                    </DataTemplate>
+                </ContentPresenter.ContentTemplate>
+            </ContentPresenter>
         </Grid>
         <controls:GridSplitter Grid.Row="2" />
     </Grid>

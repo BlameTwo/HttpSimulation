@@ -41,6 +41,7 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240627000" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
     <PackageReference Include="Syncfusion.Editors.WinUI" Version="26.2.9" />
+    <PackageReference Include="Syncfusion.Grid.WinUI" Version="26.2.9" />
     <PackageReference Include="Syncfusion.TreeView.WinUI" Version="26.2.9" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>

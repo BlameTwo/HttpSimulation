@@ -4,6 +4,7 @@ using SimulationApp.Contracts;
 using SimulationApp.Services;
 using SimulationApp.ViewModels;
 using SimulationApp.ViewModels.DialogViewModels.Interfaces;
+using SimulationApp.ViewModels.HttpViewModels;
 using SimulationApp.ViewModels.UserControlViewModels;
 using SimulationApp.Views;
 using SimulationApp.Views.Dialogs;
@@ -59,6 +60,9 @@ public static class ProgramLife
             .AddTransient<IDialogExtentionService, DialogExtentionService>()
             .AddTransient<IUserTabViewService, UserTabViewService>()
             .AddKeyedSingleton<INavigationService, MainNavigationService>(HostName.MainNavigation)
+            #endregion
+            #region Http ViewModel
+            .AddTransient<HttpGetParamViewModel>()
             #endregion
             .BuildServiceProvider();
         Setup.InitService(service);

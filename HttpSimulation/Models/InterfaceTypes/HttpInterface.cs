@@ -1,9 +1,11 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using HttpSimulation.Messagers;
 using HttpSimulation.Models.Enums;
+using HttpSimulation.Models.InterfaceTypes.HttpInterfaces;
 
 namespace HttpSimulation.Models.InterfaceTypes;
 
@@ -71,6 +73,10 @@ public partial class HttpData : ObservableObject, ICloneable
     [property: JsonPropertyName("uri")]
     [ObservableProperty]
     string uri;
+
+    [property: JsonPropertyName("getParams")]
+    [ObservableProperty]
+    ObservableCollection<HttpGetParam> getParams;
 
     public object Clone()
     {
