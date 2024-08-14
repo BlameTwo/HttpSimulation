@@ -31,7 +31,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <DropDownButton Content="{x:Bind ViewModel.HttpMethod.Data.HttpMethod, Mode=OneWay}" FontSize="12">
+            <DropDownButton Content="{x:Bind ViewModel.Method.Data.HttpMethod, Mode=OneWay}" FontSize="12">
                 <DropDownButton.Flyout>
                     <MenuFlyout Placement="Bottom">
                         <MenuFlyoutItem

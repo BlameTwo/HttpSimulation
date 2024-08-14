@@ -14,16 +14,16 @@ namespace SimulationApp.ViewModels.UserControlViewModels;
 public partial class HttpInterfaceViewModel : ObservableObject
 {
     [ObservableProperty]
-    string method;
+    HttpInterface method;
 
     public void SetData(HttpInterface param)
     {
-        this.Method = param.Data.HttpMethod;
+        this.Method = param;
     }
 
     [RelayCommand]
     void SetMethod(string method)
     {
-        this.Method = method;
+        this.Method.Data.HttpMethod = method;
     }
 }
