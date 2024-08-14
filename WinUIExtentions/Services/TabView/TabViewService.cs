@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection.PortableExecutable;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using WinUIExtentions.Contracts;
 using WinUIExtentions.Contracts.TabView;
@@ -92,6 +94,49 @@ public sealed class TabViewService : ITabViewService
         if (!GetOwnerView(key, out var item))
         {
             this.View.TabItems.Remove(item);
+        }
+    }
+
+    public bool UpdateHeader(string key, string newHeader)
+    {
+        foreach (var item in View.TabItems)
+        {
+            if (item is TabViewItem viewitem)
+            {
+                if (viewitem.Tag != null && viewitem.Tag.ToString() == key)
+                {
+                    viewitem.Header = newHeader;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void UpDateProgressRing(string key, Visibility visibility)
+    {
+        foreach (var item in View.TabItems)
+        {
+            if (item is not TabViewItem viewitem)
+                return;
+            if (viewitem.Tag != null && viewitem.Tag.ToString() == key)
+            {
+                WinUIExtentions.Property.TabView.SetTabProgressRingAction(viewitem, visibility);
+            }
+        }
+    }
+
+    public void UpDateIcon(string key, IconSource source)
+    {
+        foreach (var item in View.TabItems)
+        {
+            if (item is not TabViewItem viewitem)
+                return;
+            if (viewitem.Tag != null && viewitem.Tag.ToString() == key)
+            {
+                viewitem.IconSource = source;
+                break;
+            }
         }
     }
 }

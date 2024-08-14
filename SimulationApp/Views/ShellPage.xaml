@@ -7,6 +7,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:interfaces="using:HttpSimulation.Models.InterfaceTypes"
     xmlns:local="using:SimulationApp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:myControl="using:WinUIExtentions.Controls"
@@ -15,12 +16,12 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="FolderTemplate">
+        <DataTemplate x:Key="FolderTemplate" x:DataType="interfaces:FolderInterface">
             <Grid>
                 <Grid.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem
-                            Command="{Binding ChangedInterfaceNameCommand}"
+                            Command="{x:Bind ChangedInterfaceNameCommand}"
                             FontSize="10"
                             Text="Rename">
                             <MenuFlyoutItem.Icon>
@@ -31,7 +32,7 @@
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutItem
-                            Command="{Binding RemoveInteraceCommand}"
+                            Command="{x:Bind RemoveInteraceCommand}"
                             FontSize="10"
                             Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                             Text="Delete">
@@ -53,21 +54,21 @@
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         FontSize="12"
-                        Text="{Binding Name, Mode=OneWay}" />
+                        Text="{x:Bind Name, Mode=OneWay}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="DefaultTemplate">
+        <DataTemplate x:Key="DefaultTemplate" x:DataType="interfaces:HttpInterface">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <i:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="DoubleTapped">
-                        <core:InvokeCommandAction Command="{Binding OpenItemCommand}" />
+                        <core:InvokeCommandAction Command="{x:Bind OpenItemCommand}" />
                     </core:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
                 <StackPanel.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyoutItem
-                            Command="{Binding OpenItemCommand}"
+                            Command="{x:Bind OpenItemCommand}"
                             FontSize="10"
                             Text="Open">
                             <MenuFlyoutItem.Icon>
@@ -80,7 +81,7 @@
                         </MenuFlyoutItem>
                         <MenuFlyoutSeparator />
                         <MenuFlyoutItem
-                            Command="{Binding ChangedInterfaceNameCommand}"
+                            Command="{x:Bind ChangedInterfaceNameCommand}"
                             FontSize="10"
                             Text="Rename">
                             <MenuFlyoutItem.Icon>
@@ -91,7 +92,7 @@
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutItem
-                            Command="{Binding RemoveInteraceCommand}"
+                            Command="{x:Bind RemoveInteraceCommand}"
                             FontSize="10"
                             Text="Delete">
                             <MenuFlyoutItem.Icon>
@@ -111,7 +112,7 @@
                 <TextBlock
                     Margin="5,0,0,0"
                     FontSize="12"
-                    Text="{Binding Name, Mode=OneWay}" />
+                    Text="{x:Bind Name, Mode=OneWay}" />
             </StackPanel>
         </DataTemplate>
         <selector:PorjectInterfaceSelector

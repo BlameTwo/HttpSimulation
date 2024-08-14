@@ -1,15 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using HttpSimulation.Factorys;
+﻿using System.Threading.Tasks;
 using HttpSimulation.Models;
 using HttpSimulation.Models.InterfaceTypes;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using SimulationApp.Contracts;
 using SimulationApp.ViewModels;
 using SimulationApp.ViewModels.UserControlViewModels;
 using SimulationApp.Views;
 using SimulationApp.Views.UserControls;
-using WinUIEx.Messaging;
-using WinUIExtentions.Common;
 using WinUIExtentions.Contracts.TabView;
 
 namespace SimulationApp.Services;
@@ -58,14 +56,30 @@ public class UserTabViewService : IUserTabViewService
     {
         if (type.Type == HttpSimulation.Models.Enums.RequestType.Http && type is HttpInterface http)
         {
+            var source = http.Clone();
             TabViewService.NavigationTo(
                 new WinUIExtentions.Models.TabViewArgs<
                     HttpInterfaceControl,
                     HttpInterface,
                     HttpInterfaceViewModel
-                >(type.Name, true, http, type.Name + type.ID)
+                >(type.Name, true, (HttpInterface)source, type.Name + type.ID)
             );
         }
+    }
+
+    public void UpdateHeader(string key, string header)
+    {
+        this.TabViewService.UpdateHeader(key, header);
+    }
+
+    public void UpDateProgressRing(string key, Visibility visibility)
+    {
+        this.TabViewService.UpDateProgressRing(key, visibility);
+    }
+
+    public void UpDateIcon(string key, IconSource source)
+    {
+        this.TabViewService.UpDateIcon(key, source);
     }
 
     public void CloseTab(string key)

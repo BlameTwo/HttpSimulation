@@ -56,18 +56,24 @@ public partial class HttpInterface : ObservableObject, InterfaceType
 
     public object Clone()
     {
-        return base.MemberwiseClone();
+        var obj = (HttpInterface)base.MemberwiseClone();
+        obj.Data = (HttpData)this.Data.Clone();
+        return obj;
     }
 }
 
-public class HttpData : ObservableObject
+public partial class HttpData : ObservableObject, ICloneable
 {
-    private string httpMethod;
+    [property: JsonPropertyName("method")]
+    [ObservableProperty]
+    string httpMethod;
 
-    [JsonPropertyName("method")]
-    public string HttpMethod
+    [property: JsonPropertyName("uri")]
+    [ObservableProperty]
+    string uri;
+
+    public object Clone()
     {
-        get => httpMethod;
-        set => SetProperty(ref httpMethod, value);
+        return base.MemberwiseClone();
     }
 }

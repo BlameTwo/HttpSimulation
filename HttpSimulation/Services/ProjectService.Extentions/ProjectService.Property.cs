@@ -45,4 +45,26 @@ partial class ProjectService
         // 生成新的文件夹名
         return $"新建文件夹({maxNumber + 1})";
     }
+
+    public bool UpdateHttpInterface(HttpInterface method)
+    {
+        return EditInterface(this.Interfaces, method);
+    }
+
+    private bool EditInterface(ObservableCollection<InterfaceType> interfaces, HttpInterface method)
+    {
+        for (int i = 0; i < interfaces.Count; i++)
+        {
+            if (interfaces[i].ID == method.ID)
+            {
+                interfaces[i] = method;
+                return true;
+            }
+            if (interfaces[i].Type == Models.Enums.RequestType.Folder)
+            {
+                return EditInterface((interfaces[i] as FolderInterface).Interfaces, method);
+            }
+        }
+        return false;
+    }
 }
