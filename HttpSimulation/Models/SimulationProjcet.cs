@@ -55,6 +55,7 @@ public sealed partial class SimulationProjcet : ICloneable
                 pojZippojZip.AddProjectObject(this);
                 if (this.Interfaces != null)
                     pojZippojZip.AddInterfaceObject(this.Interfaces.ToList());
+                var interfaceId = Guid.NewGuid().ToString("N").ToUpper();
                 return await pojZippojZip.BuildAsync();
             }
         }

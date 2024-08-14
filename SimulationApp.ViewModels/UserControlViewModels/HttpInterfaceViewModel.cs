@@ -4,11 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using HttpSimulation.Models;
+using HttpSimulation.Models.InterfaceTypes;
+using static System.Net.WebRequestMethods;
 
 namespace SimulationApp.ViewModels.UserControlViewModels;
 
-public class HttpInterfaceViewModel : ObservableObject
+public partial class HttpInterfaceViewModel : ObservableObject
 {
-    public void SetData(InterfaceType param) { }
+    [ObservableProperty]
+    string method;
+
+    public void SetData(HttpInterface param)
+    {
+        this.Method = param.Data.HttpMethod;
+    }
+
+    [RelayCommand]
+    void SetMethod(string method)
+    {
+        this.Method = method;
+    }
 }

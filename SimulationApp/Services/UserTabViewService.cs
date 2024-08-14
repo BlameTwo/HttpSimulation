@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HttpSimulation.Factorys;
 using HttpSimulation.Models;
+using HttpSimulation.Models.InterfaceTypes;
 using SimulationApp.Contracts;
 using SimulationApp.ViewModels;
 using SimulationApp.ViewModels.UserControlViewModels;
 using SimulationApp.Views;
 using SimulationApp.Views.UserControls;
+using WinUIEx.Messaging;
+using WinUIExtentions.Common;
 using WinUIExtentions.Contracts.TabView;
 
 namespace SimulationApp.Services;
@@ -52,14 +56,14 @@ public class UserTabViewService : IUserTabViewService
 
     public void OpenInterface(InterfaceType type)
     {
-        if (type.Type == HttpSimulation.Models.Enums.RequestType.Http)
+        if (type.Type == HttpSimulation.Models.Enums.RequestType.Http && type is HttpInterface http)
         {
             TabViewService.NavigationTo(
                 new WinUIExtentions.Models.TabViewArgs<
                     HttpInterfaceControl,
-                    InterfaceType,
+                    HttpInterface,
                     HttpInterfaceViewModel
-                >(type.Name, true, type, type.Name + type.ID)
+                >(type.Name, true, http, type.Name + type.ID)
             );
         }
     }

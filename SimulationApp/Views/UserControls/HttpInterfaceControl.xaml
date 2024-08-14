@@ -4,7 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:control="using:SimulationApp.Views.Bases"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:SimulationApp.Views.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="using:CommunityToolkit.Labs.WinUI.MarkdownTextBlock"
@@ -29,21 +31,48 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <DropDownButton Content="Post">
+            <DropDownButton Content="{x:Bind ViewModel.HttpMethod.Data.HttpMethod, Mode=OneWay}" FontSize="12">
                 <DropDownButton.Flyout>
                     <MenuFlyout Placement="Bottom">
-                        <MenuFlyoutItem Foreground="Green" Text="GET" />
-                        <MenuFlyoutItem Foreground="CadetBlue" Text="POST" />
-                        <MenuFlyoutItem Foreground="MediumPurple" Text="PUT" />
-                        <MenuFlyoutItem Foreground="IndianRed" Text="DELETE" />
-                        <MenuFlyoutItem Foreground="DeepSkyBlue" Text="PATCH" />
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.SetMethodCommand}"
+                            CommandParameter="GET"
+                            FontSize="12"
+                            Foreground="Green"
+                            Text="GET" />
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.SetMethodCommand}"
+                            CommandParameter="POST"
+                            FontSize="12"
+                            Foreground="CadetBlue"
+                            Text="POST" />
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.SetMethodCommand}"
+                            CommandParameter="PUT"
+                            FontSize="12"
+                            Foreground="MediumPurple"
+                            Text="PUT" />
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.SetMethodCommand}"
+                            CommandParameter="DELETE"
+                            FontSize="12"
+                            Foreground="IndianRed"
+                            Text="DELETE" />
+                        <MenuFlyoutItem
+                            Command="{x:Bind ViewModel.SetMethodCommand}"
+                            CommandParameter="PATCH"
+                            FontSize="12"
+                            Foreground="DeepSkyBlue"
+                            Text="PATCH" />
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
             <TextBox
                 Grid.Column="1"
                 Margin="5,0,0,0"
-                VerticalAlignment="Center" />
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                FontSize="12" />
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <Button
                     Margin="5,0,0,0"
@@ -72,27 +101,15 @@
             </Grid.RowDefinitions>
             <SelectorBar
                 x:Name="colors"
+                Padding="0"
                 Background="Transparent"
                 BorderThickness="0">
-                <SelectorBarItem Text="Params" />
-                <SelectorBarItem Text="Body" />
-                <SelectorBarItem Text="Cookie" />
-                <SelectorBarItem Text="Auth" />
+                <SelectorBarItem FontSize="12" Text="Params" />
+                <SelectorBarItem FontSize="12" Text="Body" />
+                <SelectorBarItem FontSize="12" Text="Cookie" />
+                <SelectorBarItem FontSize="12" Text="Auth" />
             </SelectorBar>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBox
-                    x:Name="source"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap" />
-                <md:MarkdownTextBlock
-                    x:Name="markdown"
-                    Grid.Column="1"
-                    Text="{x:Bind source.Text, Mode=OneWay}" />
-            </Grid>
+
         </Grid>
         <controls:GridSplitter Grid.Row="2" />
     </Grid>

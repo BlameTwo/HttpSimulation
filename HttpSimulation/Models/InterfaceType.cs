@@ -1,9 +1,9 @@
-﻿using HttpSimulation.Models.Enums;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using HttpSimulation.Models.Enums;
 
 namespace HttpSimulation.Models;
 
-public interface InterfaceType
+public interface InterfaceType : ICloneable
 {
     [JsonPropertyName("interfaceType")]
     public string Name { get; set; }
@@ -12,5 +12,5 @@ public interface InterfaceType
     public string ID { get; set; }
 
     [JsonPropertyName("Type")]
-    public RequestType Type { get;}
+    public RequestType Type { get; }
 }

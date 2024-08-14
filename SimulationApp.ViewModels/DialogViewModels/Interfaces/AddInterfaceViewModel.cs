@@ -32,13 +32,14 @@ public partial class AddInterfaceViewModel
         var folder = this.SelectFolder;
         if (string.IsNullOrWhiteSpace(folder))
         {
+            var id = Guid.NewGuid().ToString("N").ToUpper();
             return new AddInterfaceResult()
             {
                 Interface = new HttpInterface()
                 {
-                    ID = Guid.NewGuid().ToString("N").ToUpper(),
+                    ID = id,
                     Name = this.InterfaceName,
-                    Method = "POST",
+                    Data = new() { HttpMethod = "POST" }
                 }
             };
         }
@@ -47,6 +48,7 @@ public partial class AddInterfaceViewModel
             var fillter = this.Folders.Where(x => x == SelectFolder);
             if (fillter == null || fillter.Count() == 0)
             {
+                var interfaceId = Guid.NewGuid().ToString("N").ToUpper();
                 return new AddInterfaceResult()
                 {
                     Interface = new FolderInterface()
@@ -57,9 +59,9 @@ public partial class AddInterfaceViewModel
                         {
                             new HttpInterface()
                             {
-                                ID = Guid.NewGuid().ToString("N").ToUpper(),
+                                ID = interfaceId,
                                 Name = this.InterfaceName,
-                                Method = "POST",
+                                Data = new() { HttpMethod = "POST" }
                             }
                         }
                     }
@@ -74,7 +76,6 @@ public partial class AddInterfaceViewModel
                     {
                         ID = Guid.NewGuid().ToString("N").ToUpper(),
                         Name = this.InterfaceName,
-                        Method = "POST",
                     }
                 };
             }

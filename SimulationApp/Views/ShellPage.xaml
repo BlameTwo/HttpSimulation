@@ -107,7 +107,7 @@
                 <TextBlock
                     FontSize="12"
                     Foreground="{ThemeResource SystemFillColorSuccessBrush}"
-                    Text="{Binding Method, Mode=OneWay}" />
+                    Text="{Binding Data.HttpMethod, Mode=OneWay}" />
                 <TextBlock
                     Margin="5,0,0,0"
                     FontSize="12"

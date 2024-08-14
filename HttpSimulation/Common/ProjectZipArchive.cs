@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using HttpSimulation.Models;
 using HttpSimulation.Models.InterfaceTypes;
+using static CommunityToolkit.Mvvm.ComponentModel.__Internals.__TaskExtensions.TaskAwaitableWithoutEndValidation;
 
 namespace HttpSimulation.Common;
 
@@ -32,15 +33,16 @@ public sealed class ProjectZipArchive : ZipArchive
             await writer.WriteAsync(JsonSerializer.Serialize(this.Project));
         }
         SimulationProjcet copyProject = (SimulationProjcet)this.Project.Clone();
+        var options = new JsonSerializerOptions();
 
         var interfaceStream = this.CreateEntry("Interface.json");
         using (var writer = new StreamWriter(interfaceStream.Open(), Encoding.UTF8))
         {
-            var options = new JsonSerializerOptions();
             options.Converters.Add(new InterfaceJsonConverter());
             var json = JsonSerializer.Serialize(this.InteraceTypes, options);
             await writer.WriteAsync(json);
         }
+
         return copyProject;
     }
 

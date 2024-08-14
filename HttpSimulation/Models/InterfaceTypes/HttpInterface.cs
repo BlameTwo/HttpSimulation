@@ -7,7 +7,7 @@ using HttpSimulation.Models.Enums;
 
 namespace HttpSimulation.Models.InterfaceTypes;
 
-public class HttpInterface : ObservableObject, InterfaceType
+public partial class HttpInterface : ObservableObject, InterfaceType
 {
     private string name;
     private string iD;
@@ -27,15 +27,11 @@ public class HttpInterface : ObservableObject, InterfaceType
         set => SetProperty(ref iD, value);
     }
 
+    [ObservableProperty]
+    HttpData data;
+
     [JsonPropertyName("Type")]
     public RequestType Type => RequestType.Http;
-
-    [JsonPropertyName("HttpMethod")]
-    public string Method
-    {
-        get => method;
-        set => SetProperty(ref method, value);
-    }
 
     [JsonIgnore]
     public IRelayCommand ChangedInterfaceNameCommand => new RelayCommand(ChangedInterfaceName);
@@ -56,5 +52,22 @@ public class HttpInterface : ObservableObject, InterfaceType
     private void ChangedInterfaceName()
     {
         WeakReferenceMessenger.Default.Send<ReInterfaceName>(new(this));
+    }
+
+    public object Clone()
+    {
+        return base.MemberwiseClone();
+    }
+}
+
+public class HttpData : ObservableObject
+{
+    private string httpMethod;
+
+    [JsonPropertyName("method")]
+    public string HttpMethod
+    {
+        get => httpMethod;
+        set => SetProperty(ref httpMethod, value);
     }
 }

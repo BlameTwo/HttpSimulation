@@ -53,4 +53,9 @@ public partial class FolderInterface : ObservableObject, InterfaceType
     {
         WeakReferenceMessenger.Default.Send<ReInterfaceName>(new(this));
     }
+
+    public object Clone()
+    {
+        return base.MemberwiseClone();
+    }
 }
