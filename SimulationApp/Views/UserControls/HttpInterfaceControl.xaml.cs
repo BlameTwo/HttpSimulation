@@ -30,7 +30,7 @@ namespace SimulationApp.Views.UserControls
 
         private void jsonEdit_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            //jsonEdit.Editor.Modified -= Json_EditerModified;
+            ((CodeEditorControl)sender).Editor.Modified -= Json_EditerModified;
         }
 
         private void Json_EditerModified(
@@ -55,11 +55,19 @@ namespace SimulationApp.Views.UserControls
         private void TextEdit_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             //this.textEdit.Editor.Modified -= Editor_Modified;
+
+            ((CodeEditorControl)sender)
+                .Editor
+                .Modified -= Editor_Modified;
         }
 
         private void XmlEdit_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             //this.xmlEdit.Editor.Modified -= Editor_Modified1;
+
+            ((CodeEditorControl)sender)
+                .Editor
+                .Modified -= Editor_Modified1;
         }
 
         private void XmlEdit_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -82,13 +90,22 @@ namespace SimulationApp.Views.UserControls
 
         public void Disponse()
         {
-            jsonEdit.Loaded -= jsonEdit_Loaded;
             this.Loaded -= HttpInterfaceControl_Loaded;
-            jsonEdit.Unloaded -= jsonEdit_Unloaded;
-            xmlEdit.Loaded -= XmlEdit_Loaded;
-            textEdit.Loaded -= TextEdit_Loaded;
-            textEdit.Unloaded -= TextEdit_Unloaded;
-            xmlEdit.Unloaded -= XmlEdit_Unloaded;
+            if (jsonEdit != null)
+            {
+                jsonEdit.Loaded -= jsonEdit_Loaded;
+                jsonEdit.Unloaded -= jsonEdit_Unloaded;
+            }
+            if (xmlEdit != null)
+            {
+                xmlEdit.Unloaded -= XmlEdit_Unloaded;
+                xmlEdit.Loaded -= XmlEdit_Loaded;
+            }
+            if (textEdit != null)
+            {
+                textEdit.Loaded -= TextEdit_Loaded;
+                textEdit.Unloaded -= TextEdit_Unloaded;
+            }
             this.Bindings.StopTracking();
             this.ViewModel.Data.Data.GetParams?.Clear();
             this.ViewModel.Data.Data.HeaderCookies?.Clear();
