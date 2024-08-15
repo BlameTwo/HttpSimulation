@@ -8,7 +8,7 @@ using WinUIExtentions.Models;
 
 namespace SimulationApp.Views.Bases;
 
-public class ProjectView : AppTabItemBase<NavigationToProject, ProjectMainViewModel>, ITabViewType
+public class ProjectView : AppTabItemBase<NavigationToProject, ProjectMainViewModel>
 {
     public ProjectView()
     {

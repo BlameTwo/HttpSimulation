@@ -67,17 +67,12 @@ public sealed class TabViewService : ITabViewService
     {
         if (args.Item is TabViewItem viewitem)
         {
-            if (viewitem.Content is ITabViewType type)
+            if (viewitem.Content is IEditControl type)
             {
-                if (type.TabItemType == TabItemType.Project)
-                {
-                    await type.SaveAsync();
-                    this.View.TabItems.Remove(viewitem);
-                }
-                else
-                {
-                    this.View.TabItems.Remove(viewitem);
-                }
+                type.Save();
+                type.Disponse();
+
+                this.View.TabItems.Remove(args.Item);
             }
         }
     }
@@ -93,7 +88,12 @@ public sealed class TabViewService : ITabViewService
     {
         if (!GetOwnerView(key, out var item))
         {
-            this.View.TabItems.Remove(item);
+            if (item is IEditControl type)
+            {
+                type.Save();
+                type.Disponse();
+                this.View.TabItems.Remove(item);
+            }
         }
     }
 

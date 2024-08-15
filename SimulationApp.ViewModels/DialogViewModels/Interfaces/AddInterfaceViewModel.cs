@@ -39,7 +39,8 @@ public partial class AddInterfaceViewModel
                 {
                     ID = id,
                     Name = this.InterfaceName,
-                    Data = new() { HttpMethod = "POST" }
+                    Data = new() { HttpMethod = "POST" },
+                    BodyData = new() { FromData = new(), FromUrlencode = new() }
                 }
             };
         }
@@ -61,7 +62,8 @@ public partial class AddInterfaceViewModel
                             {
                                 ID = interfaceId,
                                 Name = this.InterfaceName,
-                                Data = new() { HttpMethod = "POST" }
+                                Data = new() { HttpMethod = "POST" },
+                                BodyData = new() { FromData = new(), FromUrlencode = new() }
                             }
                         }
                     }

@@ -32,6 +32,9 @@ public partial class HttpInterface : ObservableObject, InterfaceType
     [ObservableProperty]
     HttpData data;
 
+    [ObservableProperty]
+    HttpBodyData bodyData;
+
     [JsonPropertyName("Type")]
     public RequestType Type => RequestType.Http;
 
@@ -60,6 +63,7 @@ public partial class HttpInterface : ObservableObject, InterfaceType
     {
         var obj = (HttpInterface)base.MemberwiseClone();
         obj.Data = (HttpData)this.Data.Clone();
+        obj.BodyData = (HttpBodyData)this.BodyData.Clone();
         return obj;
     }
 }
@@ -77,6 +81,38 @@ public partial class HttpData : ObservableObject, ICloneable
     [property: JsonPropertyName("getParams")]
     [ObservableProperty]
     ObservableCollection<HttpGetParam> getParams;
+
+    [property: JsonPropertyName("cookies")]
+    [ObservableProperty]
+    ObservableCollection<HttpHeaderCookies> headerCookies;
+
+    public object Clone()
+    {
+        return base.MemberwiseClone();
+    }
+}
+
+public partial class HttpBodyData : ObservableObject, ICloneable
+{
+    [property: JsonPropertyName("selectBody")]
+    [ObservableProperty]
+    string selectBody;
+
+    [property: JsonPropertyName("bodyFormData")]
+    [ObservableProperty]
+    ObservableCollection<BodyFormData> fromData;
+
+    [property: JsonPropertyName("bodyUrlencode")]
+    [ObservableProperty]
+    ObservableCollection<BodyUrlEncodeData> fromUrlencode;
+
+    [property: JsonPropertyName("jsonData")]
+    [ObservableProperty]
+    string jsonData;
+
+    [property: JsonPropertyName("xmlData")]
+    [ObservableProperty]
+    string xmlData;
 
     public object Clone()
     {

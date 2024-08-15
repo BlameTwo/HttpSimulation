@@ -63,6 +63,7 @@ public static class ProgramLife
             #endregion
             #region Http ViewModel
             .AddTransient<HttpGetParamViewModel>()
+            .AddTransient<HttpBodyViewModel>()
             #endregion
             .BuildServiceProvider();
         Setup.InitService(service);

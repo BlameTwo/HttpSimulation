@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ColorCode.WinUI" Version="2.0.15" />
     <PackageReference Include="CommunityToolkit.Labs.WinUI.Controls.MarkdownTextBlock" Version="0.1.240801-build.1708" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.HeaderedControls" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.Sizers" Version="8.0.240109" />
@@ -43,6 +44,7 @@
     <PackageReference Include="Syncfusion.Editors.WinUI" Version="26.2.9" />
     <PackageReference Include="Syncfusion.Grid.WinUI" Version="26.2.9" />
     <PackageReference Include="Syncfusion.TreeView.WinUI" Version="26.2.9" />
+    <PackageReference Include="WinUIEdit" Version="0.0.3-prerelease" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
