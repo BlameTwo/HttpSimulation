@@ -78,10 +78,6 @@ public partial class HttpData : ObservableObject, ICloneable
     [ObservableProperty]
     string uri;
 
-    [property: JsonPropertyName("getParams")]
-    [ObservableProperty]
-    ObservableCollection<HttpGetParam> getParams;
-
     [property: JsonPropertyName("cookies")]
     [ObservableProperty]
     ObservableCollection<HttpHeaderCookies> headerCookies;
@@ -102,6 +98,10 @@ public partial class HttpBodyData : ObservableObject, ICloneable
     [ObservableProperty]
     ObservableCollection<BodyFormData> fromData;
 
+    [property: JsonPropertyName("cookieData")]
+    [ObservableProperty]
+    ObservableCollection<HttpHeaderCookies> cookieData;
+
     [property: JsonPropertyName("bodyUrlencode")]
     [ObservableProperty]
     ObservableCollection<BodyUrlEncodeData> fromUrlencode;
@@ -113,6 +113,14 @@ public partial class HttpBodyData : ObservableObject, ICloneable
     [property: JsonPropertyName("xmlData")]
     [ObservableProperty]
     string xmlData;
+
+    [property: JsonPropertyName("rawData")]
+    [ObservableProperty]
+    string rawData;
+
+    [property: JsonPropertyName("getParams")]
+    [ObservableProperty]
+    ObservableCollection<HttpGetParam> getParams;
 
     public object Clone()
     {

@@ -33,8 +33,7 @@ public sealed partial class ShellViewModel
         IDialogExtentionService dialogExtentionService,
         IPickersService pickersService,
         IUserTabViewService userTabViewService,
-        ITabViewService tabViewService,
-        ProjectService projectService
+        ITabViewService tabViewService
     )
     {
         ApplicationSetup = applicationSetup;
@@ -42,7 +41,6 @@ public sealed partial class ShellViewModel
         PickersService = pickersService;
         UserTabViewService = userTabViewService;
         TabViewService = tabViewService;
-        ProjectService = projectService;
         this.IsActive = true;
     }
 
@@ -51,7 +49,8 @@ public sealed partial class ShellViewModel
     public IPickersService PickersService { get; }
     public IUserTabViewService UserTabViewService { get; }
     public ITabViewService TabViewService { get; }
-    public ProjectService ProjectService { get; }
+    public ProjectService ProjectService =>
+        Setup.ServiceProvider.GetRequiredService<ProjectService>();
 
     [RelayCommand]
     async Task ShowCreateProject()
@@ -121,6 +120,12 @@ public sealed partial class ShellViewModel
 
     public void Receive(OpenInterface message)
     {
-        UserTabViewService.OpenInterface(message.Interface);
+        //UserTabViewService.OpenInterface(message.Interface);
+    }
+
+    [RelayCommand]
+    void OpenInterface(InterfaceType message)
+    {
+        UserTabViewService.OpenInterface(message);
     }
 }

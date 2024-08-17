@@ -37,9 +37,9 @@
     <Grid Padding="5" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition />
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
-            <RowDefinition />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -112,7 +112,7 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="0,6,0,0">
             <Pivot Margin="0,10,0,0" FontSize="12">
                 <PivotItem FontSize="12" Header="Param">
                     <dataGrid:SfDataGrid
@@ -127,7 +127,7 @@
                         DetailsViewPadding="10"
                         FontSize="18"
                         HeaderRowHeight="25"
-                        ItemsSource="{x:Bind ViewModel.ParamViewModel.GetParams, Mode=OneWay}"
+                        ItemsSource="{x:Bind ViewModel.GetParams, Mode=OneWay}"
                         RowHeight="30" />
                 </PivotItem>
                 <PivotItem FontSize="12" Header="Body">
@@ -136,7 +136,7 @@
                         BorderBrush="Gray"
                         BorderThickness="1"
                         FontSize="12"
-                        SelectedItem="{x:Bind ViewModel.BodyViewModel.SelectItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        SelectedItem="{x:Bind ViewModel.SelectItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <Pivot.Resources>
                             <x:Double x:Key="PivotHeaderItemFontSize">12</x:Double>
                             <x:Double x:Key="PivotHeaderItemLockedTranslation">0</x:Double>
@@ -171,38 +171,49 @@
                                 AddNewRowPosition="Bottom"
                                 AllowDeleting="True"
                                 AllowEditing="True"
+                                Background="Transparent"
                                 BorderThickness="2"
                                 ColumnWidthMode="Star"
-                                ItemsSource="{x:Bind ViewModel.BodyViewModel.BodyData.FromData, Mode=OneWay}" />
+                                EditTrigger="OnDoubleTap"
+                                ItemsSource="{x:Bind ViewModel.FromData, Mode=OneWay}" />
                         </PivotItem>
                         <PivotItem Header="x-www-form-urlencoded">
                             <dataGrid:SfDataGrid
                                 AddNewRowPosition="Bottom"
                                 AllowDeleting="True"
                                 AllowEditing="True"
+                                Background="Transparent"
                                 BorderThickness="2"
                                 ColumnWidthMode="Star"
-                                ItemsSource="{x:Bind ViewModel.BodyViewModel.BodyData.FromUrlencode, Mode=OneWay}" />
+                                ItemsSource="{x:Bind ViewModel.FromUrlencode, Mode=OneWay}"
+                                RowHeight="36" />
                         </PivotItem>
                         <PivotItem Header="json">
                             <Grid BorderBrush="{ThemeResource AccentFillColorDisabled}" BorderThickness="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition />
                                     <RowDefinition Height="auto" />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <Button
+                                        Grid.Row="0"
+                                        Margin="0,15,15,0"
+                                        Padding="3"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Style="{ThemeResource TransparentButtonStyle}">
+                                        <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xE112;" />
+                                    </Button>
+                                </StackPanel>
                                 <edit:CodeEditorControl
                                     x:Name="jsonEdit"
-                                    Margin="0,15,0,0"
-                                    x:Load="{x:Bind ViewModel.BodyViewModel.JsonVisibility, Mode=OneWay}"
+                                    Grid.Row="1"
+                                    x:Load="{x:Bind ViewModel.JsonVisibility, Mode=OneWay}"
                                     HighlightingLanguage="json"
                                     IsHoldingEnabled="True"
                                     Loaded="jsonEdit_Loaded"
                                     Unloaded="jsonEdit_Unloaded" />
-                                <!--  myB:CodeEditBinding.Text="{x:Bind ViewModel.BodyViewModel.JsonStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  -->
-                                <Button
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Center"
-                                    Content="Check Json" />
+
                             </Grid>
                         </PivotItem>
                         <PivotItem Header="xml">
@@ -214,12 +225,11 @@
                                 <edit:CodeEditorControl
                                     x:Name="xmlEdit"
                                     Margin="0,15,0,0"
-                                    x:Load="{x:Bind ViewModel.BodyViewModel.XmlVisibility, Mode=OneWay}"
+                                    x:Load="{x:Bind ViewModel.XmlVisibility, Mode=OneWay}"
                                     HighlightingLanguage="xml"
                                     IsHoldingEnabled="True"
                                     Loaded="XmlEdit_Loaded"
                                     Unloaded="XmlEdit_Unloaded" />
-                                <!--  myB:CodeEditBinding.Text="{x:Bind ViewModel.BodyViewModel.XmlStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  -->
                                 <Button
                                     Grid.Row="1"
                                     HorizontalAlignment="Center"
@@ -229,21 +239,78 @@
                         <PivotItem Header="raw">
                             <edit:CodeEditorControl
                                 x:Name="textEdit"
-                                x:Load="{x:Bind ViewModel.BodyViewModel.RawVisibility, Mode=OneWay}"
+                                x:Load="{x:Bind ViewModel.RawVisibility, Mode=OneWay}"
                                 Loaded="TextEdit_Loaded"
                                 Unloaded="TextEdit_Unloaded" />
-                            <!--  myB:CodeEditBinding.Text="{x:Bind ViewModel.BodyViewModel.RawStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  -->
                         </PivotItem>
                     </Pivot>
                 </PivotItem>
                 <PivotItem FontSize="12" Header="Cookie">
-                    <dataGrid:SfDataGrid />
+                    <dataGrid:SfDataGrid
+                        AddNewRowPosition="Bottom"
+                        AllowDeleting="True"
+                        AllowEditing="True"
+                        Background="Transparent"
+                        BorderThickness="2"
+                        ColumnWidthMode="Star"
+                        ItemsSource="{x:Bind ViewModel.CookieData, Mode=OneWay}" />
                 </PivotItem>
                 <PivotItem FontSize="12" Header="Auth">
-                    <dataGrid:SfDataGrid />
+                    <dataGrid:SfDataGrid Background="Transparent" />
                 </PivotItem>
             </Pivot>
         </Grid>
         <controls:GridSplitter Grid.Row="2" />
+        <Pivot
+            Grid.Row="3"
+            Margin="0,-5,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <Pivot.Resources>
+                <x:Double x:Key="PivotHeaderItemFontSize">12</x:Double>
+                <x:Double x:Key="PivotHeaderItemLockedTranslation">0</x:Double>
+                <x:Double x:Key="PivotTitleFontSize">12</x:Double>
+                <x:Int32 x:Key="PivotHeaderItemCharacterSpacing">0</x:Int32>
+                <Thickness x:Key="PivotHeaderItemMargin">10 0 0 0</Thickness>
+                <Thickness x:Key="PivotItemMargin">0</Thickness>
+                <Thickness x:Key="PivotLandscapeThemePadding">0</Thickness>
+                <Thickness x:Key="PivotNavButtonBorderThemeThickness">0</Thickness>
+                <Thickness x:Key="PivotNavButtonMargin">0</Thickness>
+                <Thickness x:Key="PivotPortraitThemePadding">0</Thickness>
+            </Pivot.Resources>
+            <PivotItem
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Header="Console">
+                <RichEditBox
+                    Margin="0,-5,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap" />
+            </PivotItem>
+            <PivotItem
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Header="Body">
+                <RichEditBox
+                    Margin="0,-5,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap" />
+            </PivotItem>
+            <PivotItem
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Header="Header">
+                <RichEditBox
+                    Margin="0,-5,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap" />
+            </PivotItem>
+        </Pivot>
     </Grid>
 </control:HttpInterfaceView>

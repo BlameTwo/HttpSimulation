@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using HttpSimulation.Models;
 using HttpSimulation.Models.InterfaceTypes;
 using HttpSimulation.Models.Operation;
 using SimulationApp.Contracts;
-using WinUIExtentions.Contracts;
 
 namespace SimulationApp.ViewModels.DialogViewModels.Interfaces;
 
@@ -39,8 +37,14 @@ public partial class AddInterfaceViewModel
                 {
                     ID = id,
                     Name = this.InterfaceName,
-                    Data = new() { HttpMethod = "POST" },
-                    BodyData = new() { FromData = new(), FromUrlencode = new() }
+                    Data = new() { HttpMethod = "POST", },
+                    BodyData = new()
+                    {
+                        FromUrlencode = new(),
+                        CookieData = new(),
+                        FromData = new(),
+                        GetParams = new()
+                    }
                 }
             };
         }
@@ -62,8 +66,14 @@ public partial class AddInterfaceViewModel
                             {
                                 ID = interfaceId,
                                 Name = this.InterfaceName,
-                                Data = new() { HttpMethod = "POST" },
-                                BodyData = new() { FromData = new(), FromUrlencode = new() }
+                                Data = new() { HttpMethod = "POST", },
+                                BodyData = new()
+                                {
+                                    FromUrlencode = new(),
+                                    CookieData = new(),
+                                    FromData = new(),
+                                    GetParams = new()
+                                }
                             }
                         }
                     }

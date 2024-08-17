@@ -1,3 +1,15 @@
-﻿namespace HttpSimulation.Models.InterfaceTypes.HttpInterfaces;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class HttpHeaderCookies { }
+namespace HttpSimulation.Models.InterfaceTypes.HttpInterfaces;
+
+public partial class HttpHeaderCookies : ObservableObject
+{
+    [ObservableProperty]
+    public string key;
+
+    [ObservableProperty]
+    public string value;
+
+    [ObservableProperty]
+    public string by;
+}

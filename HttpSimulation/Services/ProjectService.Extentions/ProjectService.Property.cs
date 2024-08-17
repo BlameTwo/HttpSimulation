@@ -48,16 +48,33 @@ partial class ProjectService
 
     public bool UpdateHttpInterface(HttpInterface method)
     {
-        return EditInterface(this.Interfaces, method);
+        return EditInterface(method);
+    }
+
+    private bool EditInterface(HttpInterface method)
+    {
+        for (int i = 0; i < Interfaces.Count; i++)
+        {
+            if (Interfaces[i].ID == method.ID)
+            {
+                this.Interfaces[i] = (InterfaceType)method.Clone();
+                return true;
+            }
+            if (Interfaces[i].Type == Models.Enums.RequestType.Folder)
+            {
+                return EditInterface(((Interfaces[i] as FolderInterface)!).Interfaces, method);
+            }
+        }
+        return false;
     }
 
     private bool EditInterface(ObservableCollection<InterfaceType> interfaces, HttpInterface method)
     {
-        for (int i = 0; i < interfaces.Count; i++)
+        for (int i = 0; i < Interfaces.Count; i++)
         {
             if (interfaces[i].ID == method.ID)
             {
-                interfaces[i] = method;
+                this.Interfaces[i] = method;
                 return true;
             }
             if (interfaces[i].Type == Models.Enums.RequestType.Folder)

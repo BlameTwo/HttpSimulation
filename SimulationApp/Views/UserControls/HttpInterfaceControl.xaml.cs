@@ -24,7 +24,7 @@ namespace SimulationApp.Views.UserControls
 
         private void jsonEdit_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            this.jsonEdit.Editor.SetText(this.ViewModel.BodyViewModel.JsonStr);
+            this.jsonEdit.Editor.SetText(this.ViewModel.JsonStr);
             jsonEdit.Editor.Modified += Json_EditerModified;
         }
 
@@ -38,18 +38,18 @@ namespace SimulationApp.Views.UserControls
             WinUIEditor.ModifiedEventArgs args
         )
         {
-            this.ViewModel.BodyViewModel.JsonStr = sender.GetText(long.MaxValue);
+            this.ViewModel.JsonStr = sender.GetText(long.MaxValue);
         }
 
         private void TextEdit_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            this.textEdit.Editor.SetText(this.ViewModel.BodyViewModel.RawStr);
+            this.textEdit.Editor.SetText(this.ViewModel.RawStr);
             this.textEdit.Editor.Modified += Editor_Modified;
         }
 
         private void Editor_Modified(Editor sender, ModifiedEventArgs args)
         {
-            this.ViewModel.BodyViewModel.RawStr = sender.GetText(long.MaxValue);
+            this.ViewModel.RawStr = sender.GetText(long.MaxValue);
         }
 
         private void TextEdit_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -72,13 +72,13 @@ namespace SimulationApp.Views.UserControls
 
         private void XmlEdit_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            this.xmlEdit.Editor.SetText(this.ViewModel.BodyViewModel.XmlStr);
+            this.xmlEdit.Editor.SetText(this.ViewModel.XmlStr);
             this.xmlEdit.Editor.Modified += Editor_Modified1;
         }
 
         private void Editor_Modified1(Editor sender, ModifiedEventArgs args)
         {
-            this.ViewModel.BodyViewModel.XmlStr = sender.GetText(long.MaxValue);
+            this.ViewModel.XmlStr = sender.GetText(long.MaxValue);
         }
 
         public TabItemType TabItemType => TabItemType.Interface;
@@ -90,6 +90,7 @@ namespace SimulationApp.Views.UserControls
 
         public void Disponse()
         {
+            this.Bindings.StopTracking();
             this.Loaded -= HttpInterfaceControl_Loaded;
             if (jsonEdit != null)
             {
@@ -106,9 +107,6 @@ namespace SimulationApp.Views.UserControls
                 textEdit.Loaded -= TextEdit_Loaded;
                 textEdit.Unloaded -= TextEdit_Unloaded;
             }
-            this.Bindings.StopTracking();
-            this.ViewModel.Data.Data.GetParams?.Clear();
-            this.ViewModel.Data.Data.HeaderCookies?.Clear();
             this.ViewModel.Data = null;
             this.ViewModel = null;
             GC.Collect();

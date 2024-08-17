@@ -232,7 +232,14 @@
                     ChildPropertyName="Interfaces"
                     IsAnimationEnabled="False"
                     ItemTemplateSelector="{ThemeResource PorjectInterfaceSelector}"
-                    ItemsSource="{x:Bind ViewModel.ProjectService.Interfaces, Mode=OneWay}" />
+                    ItemsSource="{x:Bind ViewModel.ProjectService.Interfaces, Mode=OneWay}"
+                    SelectionMode="Single">
+                    <i:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                            <core:InvokeCommandAction Command="{x:Bind ViewModel.OpenInterfaceCommand}" CommandParameter="{x:Bind interfaceView.SelectedItem, Mode=OneWay}" />
+                        </core:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </controls:SfTreeView>
             </Grid>
 
         </Grid>
